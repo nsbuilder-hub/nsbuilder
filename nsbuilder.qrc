@@ -1,0 +1,31 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/editpaste.png</file>
+        <file>images/editcopy.png</file>
+        <file>images/editcut.png</file>
+        <file>images/filenew.png</file>
+        <file>images/fileopen.png</file>
+        <file>images/filesave.png</file>
+        <file>images/filesaveas.png</file>
+        <file>images/fileprint.png</file>
+        <file>images/append.png</file>
+        <file>images/insert.png</file>
+        <file>images/edit.png</file>
+        <file>images/remove.png</file>
+        <file>images/editscheme.png</file>
+        <file>images/editvars.png</file>
+        <file>images/mailsend.png</file>
+        <file>images/export.png</file>
+        <file>images/exportsvg.png</file>
+        <file>images/run.png</file>
+        <file>images/cont.png</file>
+        <file>images/stop.png</file>
+        <file>images/next.png</file>
+        <file>images/putsvg.png</file>
+        <file>images/putnss.png</file>
+        <file>images/filesaveall.png</file>
+        <file>images/editundo.png</file>
+        <file>images/nvplus.png</file>
+        <file>images/nvminus.png</file>
+    </qresource>
+</RCC>
