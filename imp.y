@@ -25,6 +25,7 @@ int implex ();
 %left NEG
 %left BOPER
 %left NOTOPER
+%token UNRECOGNIZED
 %%
 
 PROGRAM:	INSTR_PRZYP {

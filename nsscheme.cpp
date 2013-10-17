@@ -975,7 +975,7 @@ ProgramVariables* NSScheme::variables ()
 
 void NSScheme::getInput(ExecutionThread *executor, const QString& type, const QString& caption, const QString& message)
 {
-        bool ok;
+        bool ok = true;
 
 	if (type == "int") {
                 executor->inputValue = QInputDialog::getInteger (this, caption, message, 0, -2147483647, 2147483647, 1, &ok);

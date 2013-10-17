@@ -45,7 +45,7 @@ COMMA		,
 
 FUNCIDENT	"sin"|"cos"|"tg"|"ctg"|"exp"|"ln"|"log"|"sqrt"|"abs"
 
-NAPIS		\'[^']+\'
+NAPIS		\'[^'"]+\'
 %%
 {MOD}		{
 	implval = new drzewo_skladn(OPER_ARYTM, strdup (yytext));
@@ -381,7 +381,8 @@ qDebug ( "new pointer %p\n", w);
 .	{
         //printf ("lex unknown: %c", yytext[0]);
         imperror ("unknown character");
-	textlen += strlen (yytext);        
+        textlen += strlen (yytext);
+        return UNRECOGNIZED;
 }
 %%
 /*

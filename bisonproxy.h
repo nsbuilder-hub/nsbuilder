@@ -6,8 +6,8 @@
 
 #include "imp_idents.h"
 
-class drzewo_skladn;
-class ident_val_t;
+struct drzewo_skladn;
+struct ident_val_t;
 
 int impparse ();
 int imp_scan_string (const char * str);

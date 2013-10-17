@@ -160,7 +160,7 @@ QString OutputInstruction::syntacticTreeValueToString (drzewo_skladn *t, Program
 	if (t == 0)
 		return info;
 	
-	if ((t->typ == ATOM_IDENT)) {
+        if (t->typ == ATOM_IDENT) {
 		info = /*tr("Variable %1 has value %2")
 			.arg (t->zmienna->ident)
 			.arg */(vars->byName (t->zmienna->ident)->v.bval.toString ());
