@@ -5,8 +5,8 @@ unix:QMAKE_CXXFLAGS ~= s/-m64/-m32/
 unix:QMAKE_LFLAGS ~= s/-m64/-m32/
 }
 
-CONFIG		+= debug
-CONFIG		-= release
+CONFIG		-= debug
+CONFIG		+= release
 
 win32:DEFINES		+= WIN32
 win32:QMAKE_YACC	= bison
