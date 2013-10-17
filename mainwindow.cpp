@@ -263,7 +263,7 @@ void MainWindow::settings ()
 
 void MainWindow::about ()
 {
-    QString aboutTemplate = tr("<h1>This is NS scheme builder.</h1><p>Version: %1<br/>URL: <a href=\"http://cs.pollub.pl/~awojdyga/nsbuilder/\">http://cs.pollub.pl/~awojdyga/nsbuilder/</a></p><p>Windows installer: Jakub Kosid&#0322;o</p>");
+    QString aboutTemplate = tr("<h1>This is NS scheme builder.</h1><p>Author: Aleksander Wojdyga<br/>Version: %1<br/>URL: <a href=\"https://code.google.com/p/nsbuilder/\">https://code.google.com/p/nsbuilder/</a></p><p>Windows installer: Jakub Kosid&#0322;o</p>");
     QMessageBox::about (this, tr("About NS Builder"), aboutTemplate.arg(SVN_VER));
 }
 
