@@ -9,7 +9,7 @@ class NSScheme;
 class ReturnInstruction : public Instruction {
     Q_OBJECT
 
-    public:
+public:
     ReturnInstruction(NSScheme *scheme, QWidget *parent=0, Instruction *parentInstruction=0, bool visible=true);
 
     virtual void setContents (QString newContents);
@@ -27,10 +27,10 @@ class ReturnInstruction : public Instruction {
     virtual bool validateContents ();
     virtual void recursiveValidateContents ();
 
-    protected:
+protected:
     void paintEvent (QPaintEvent *e);
 
-    private:
+private:
     QLabel *label;
     BaseValue result;
 };

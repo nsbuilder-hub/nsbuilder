@@ -22,39 +22,39 @@ class NSScheme;
 #include "instruction.h"
 
 class OutputInstruction : public Instruction {
-	Q_OBJECT
+    Q_OBJECT
 
-	public:
-	OutputInstruction(NSScheme *scheme, QWidget *parent=0, Instruction *parentInstruction=0, bool visible=true);
+public:
+    OutputInstruction(NSScheme *scheme, QWidget *parent=0, Instruction *parentInstruction=0, bool visible=true);
 
-	virtual void setContents (QString newContents);
-	virtual void setComment (QString newComment);
-	virtual void setPixmap (QPixmap newImage);
+    virtual void setContents (QString newContents);
+    virtual void setComment (QString newComment);
+    virtual void setPixmap (QPixmap newImage);
 
-	virtual void formatXMLNode (QDomDocument& document, QDomNode& parent);
-	virtual bool setAsXMLNode (QDomNode& element);
-	virtual void formatSVGNode (QDomDocument& document, QDomNode& parent);
+    virtual void formatXMLNode (QDomDocument& document, QDomNode& parent);
+    virtual bool setAsXMLNode (QDomNode& element);
+    virtual void formatSVGNode (QDomDocument& document, QDomNode& parent);
 
-	virtual QSize minimumSizeHint () const;
+    virtual QSize minimumSizeHint () const;
 
-	/**
-	 * Wykonuje instrukcję i zwraca następną instrukcję do wykonania.
-	 */
-	virtual Instruction* execute (ExecutionThread *executor, bool *wait);
+    /**
+     * Wykonuje instrukcję i zwraca następną instrukcję do wykonania.
+     */
+    virtual Instruction* execute (ExecutionThread *executor, bool *wait);
 
-	virtual bool validateContents ();
-        virtual void recursiveValidateContents ();
+    virtual bool validateContents ();
+    virtual void recursiveValidateContents ();
 
-        QString syntacticTreeValueToString (drzewo_skladn *t, ProgramVariables *vars);
-	
-	protected:
-	void paintEvent (QPaintEvent *e);
-	void showEvent (QShowEvent *e);
+    QString syntacticTreeValueToString (drzewo_skladn *t, ProgramVariables *vars);
 
-	virtual Instruction * copyOf ();
+protected:
+    void paintEvent (QPaintEvent *e);
+    void showEvent (QShowEvent *e);
 
-	private:
-	QLabel *label;
+    virtual Instruction * copyOf ();
+
+private:
+    QLabel *label;
 };
 
 #endif

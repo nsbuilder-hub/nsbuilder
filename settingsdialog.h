@@ -8,59 +8,59 @@
 #include <QDialog>
 
 class SettingsDialog : public QDialog, public Ui_SettingsDialog {
-	Q_OBJECT
+    Q_OBJECT
 
-	public:
-	SettingsDialog(QWidget *parent);
-	
-	QPoint position ();
-	void setPosition (const QPoint &p);
+public:
+    SettingsDialog(QWidget *parent);
 
-	QSize size ();
-	void setSize (const QSize &s);
+    QPoint position ();
+    void setPosition (const QPoint &p);
 
-	QFont schemeFont ();
-	void setSchemeFont (const QFont &f);
+    QSize size ();
+    void setSize (const QSize &s);
 
-	QColor selectionColor ();
-	void setSelectionColor (const QColor&c);
+    QFont schemeFont ();
+    void setSchemeFont (const QFont &f);
 
-	QColor invalidColor ();
-	void setInvalidColor (const QColor &c);
+    QColor selectionColor ();
+    void setSelectionColor (const QColor&c);
 
-	QColor executionColor ();
-	void setExecutionColor (const QColor &c);
-	
-	int executionSleep ();
-	void setExecutionSleep (int v);
+    QColor invalidColor ();
+    void setInvalidColor (const QColor &c);
 
-	QString putHostName ();
-	void setPutHostName (const QString &);
-	
-	int putPortNumber ();
-	void setPutPortNumber (int);
-	
-	QString putAppName ();
-	void setPutAppName (const QString &a);
+    QColor executionColor ();
+    void setExecutionColor (const QColor &c);
 
-	public slots:
-	int exec ();
-	virtual void accept ();
-	void on_selectColorPB_clicked ();
-	void on_invalidColorPB_clicked ();
-	void on_selectFontPB_clicked ();
-	void on_executionColorPB_clicked ();
-	
-	private:
-	Ui::SettingsDialog ui;
-	QSettings *appSettings;
-	QColor tmpColor;
-	QColor tmpInvalidColor;
-	QColor tmpExecutionColor;
-	QFont tmpSchemeFont;
-	int tmpExecutionSleep;
+    int executionSleep ();
+    void setExecutionSleep (int v);
 
-	private slots:
+    QString putHostName ();
+    void setPutHostName (const QString &);
+
+    int putPortNumber ();
+    void setPutPortNumber (int);
+
+    QString putAppName ();
+    void setPutAppName (const QString &a);
+
+public slots:
+    int exec ();
+    virtual void accept ();
+    void on_selectColorPB_clicked ();
+    void on_invalidColorPB_clicked ();
+    void on_selectFontPB_clicked ();
+    void on_executionColorPB_clicked ();
+
+private:
+    Ui::SettingsDialog ui;
+    QSettings *appSettings;
+    QColor tmpColor;
+    QColor tmpInvalidColor;
+    QColor tmpExecutionColor;
+    QFont tmpSchemeFont;
+    int tmpExecutionSleep;
+
+private slots:
 };
 
 extern SettingsDialog *settingsDialog;

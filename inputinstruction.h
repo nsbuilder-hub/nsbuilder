@@ -23,38 +23,38 @@ class QSize;
 #include "instruction.h"
 
 class InputInstruction : public Instruction {
-	Q_OBJECT
+    Q_OBJECT
 
-	public:
-	InputInstruction(NSScheme *scheme, QWidget *parent=0, Instruction *parentInstruction=0, bool visible=true);
+public:
+    InputInstruction(NSScheme *scheme, QWidget *parent=0, Instruction *parentInstruction=0, bool visible=true);
 
-	virtual void setContents (QString newContents);
-	virtual void setComment (QString newComment);
-	virtual void setPixmap (QPixmap newImage);
+    virtual void setContents (QString newContents);
+    virtual void setComment (QString newComment);
+    virtual void setPixmap (QPixmap newImage);
 
-	virtual void formatXMLNode (QDomDocument& document, QDomNode& parent);
-	virtual bool setAsXMLNode (QDomNode& element);
-	virtual void formatSVGNode (QDomDocument& document, QDomNode& parent);
+    virtual void formatXMLNode (QDomDocument& document, QDomNode& parent);
+    virtual bool setAsXMLNode (QDomNode& element);
+    virtual void formatSVGNode (QDomDocument& document, QDomNode& parent);
 
-	virtual Instruction * copyOf ();
-	
-	virtual QSize minimumSizeHint () const;
+    virtual Instruction * copyOf ();
 
-	/**
-	 * Wykonuje instrukcję i zwraca następną instrukcję do wykonania.
-	 */
-	virtual Instruction* execute (ExecutionThread *executor, bool *wait);
-	
-	virtual bool validateContents ();
-        virtual void recursiveValidateContents ();
+    virtual QSize minimumSizeHint () const;
 
-        void readInputValue (drzewo_skladn *t, ExecutionThread *e, ProgramVariables *vars);
-	protected:
-	virtual void paintEvent (QPaintEvent *e);
-	virtual void showEvent (QShowEvent *e);
+    /**
+     * Wykonuje instrukcję i zwraca następną instrukcję do wykonania.
+     */
+    virtual Instruction* execute (ExecutionThread *executor, bool *wait);
 
-	private:
-	QLabel *label;
+    virtual bool validateContents ();
+    virtual void recursiveValidateContents ();
+
+    void readInputValue (drzewo_skladn *t, ExecutionThread *e, ProgramVariables *vars);
+protected:
+    virtual void paintEvent (QPaintEvent *e);
+    virtual void showEvent (QShowEvent *e);
+
+private:
+    QLabel *label;
 };
 
 #endif

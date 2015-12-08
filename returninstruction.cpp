@@ -32,8 +32,8 @@ ReturnInstruction::ReturnInstruction(NSScheme *scheme, QWidget *parent, Instruct
     layout->addWidget (label);
 
     if (scheme) {
-            connect (this, SIGNAL(instructionActivated(Instruction*)),
-                     scheme, SLOT(on_instructionActivated(Instruction*)));
+        connect (this, SIGNAL(instructionActivated(Instruction*)),
+                 scheme, SLOT(on_instructionActivated(Instruction*)));
     }
 
 }
@@ -84,23 +84,23 @@ void ReturnInstruction::formatXMLNode (QDomDocument& document, QDomNode& parent)
 bool ReturnInstruction::setAsXMLNode (QDomNode& node)
 {
     if (node.hasChildNodes ()) {
-            QDomNodeList nodeList = node.childNodes ();
+        QDomNodeList nodeList = node.childNodes ();
 
-            for (unsigned i = 0; i < nodeList.length (); i++) {
-                    QDomElement e = nodeList.item (i).toElement ();
+        for (unsigned i = 0; i < nodeList.length (); i++) {
+            QDomElement e = nodeList.item (i).toElement ();
 
-                    if (! e.isNull ()) {
-                            if (e.tagName () == "text") {
-                                    QDomNode t = e.firstChild ();
-                                    setContents (t.nodeValue ());
-                            } else if (e.tagName () == "comment") {
-                                    QDomNode t = e.firstChild ();
-                                    setComment (t.nodeValue ());
-                            }
-                    }
+            if (! e.isNull ()) {
+                if (e.tagName () == "text") {
+                    QDomNode t = e.firstChild ();
+                    setContents (t.nodeValue ());
+                } else if (e.tagName () == "comment") {
+                    QDomNode t = e.firstChild ();
+                    setComment (t.nodeValue ());
+                }
             }
+        }
     } else {
-            // tekst, komentarz i pixmapa puste
+        // tekst, komentarz i pixmapa puste
     }
 
     validateContents ();
@@ -114,7 +114,7 @@ void ReturnInstruction::formatSVGNode (QDomDocument& document, QDomNode& parent)
     QDomElement g = document.createElement ("g");
     g.appendChild (createSVGTextNode (document, p.x () + 20, this->height () / 2 + p.y () + label->fontInfo ().pixelSize () / 2, m_contents));
     if (! m_comment.isEmpty ())
-            g.appendChild (createSVGTextNode (document, p.x () + 20, this->height () / 2 + p.y () - label->fontInfo ().pixelSize () / 2, m_comment));
+        g.appendChild (createSVGTextNode (document, p.x () + 20, this->height () / 2 + p.y () - label->fontInfo ().pixelSize () / 2, m_comment));
     g.appendChild (createSVGLine (document, p.x (), p.y () + this->height() / 2, p.x () + 40, p.y ()));
     g.appendChild (createSVGLine (document, p.x (), p.y () + this->height() / 2, p.x () + 40, p.y () + this->height ()));
     g.appendChild (createSVGRect (document));
@@ -140,13 +140,13 @@ Instruction* ReturnInstruction::execute (ExecutionThread *executor, bool *wait)
     setRunning (true);
 
     if (m_valid && statement) {
-            ProgramVariables *vars = scheme ()->variables ();
-            drzewo_skladn *t = statement->syntacticTree ();
-            if (t) {
-                result = execute_statement(this, t, vars);
-                scheme ()->setFunctionReturnValue (result);
-                qDebug() << "return value=" << result.toString();
-            }
+        ProgramVariables *vars = scheme ()->variables ();
+        drzewo_skladn *t = statement->syntacticTree ();
+        if (t) {
+            result = execute_statement(this, t, vars);
+            scheme ()->setFunctionReturnValue (result);
+            qDebug() << "return value=" << result.toString();
+        }
     }
 
     setRunning (false);
@@ -156,17 +156,17 @@ Instruction* ReturnInstruction::execute (ExecutionThread *executor, bool *wait)
 
 bool ReturnInstruction::validateContents ()
 {
-        do_validate (QSet<typ_skladnika>() << ATOM_LICZBA << ATOM_IDENT << OPER_ARYTM << WYR_INDEKS << FUNC_CALL << LISTA_WARTOSCI << LISTA_LWYR);
-        if (m_valid && statement && statement->syntacticTree ()) {
-                //statement->syntacticTree ()->typ = ATOM_LICZBA;
-        }
+    do_validate (QSet<typ_skladnika>() << ATOM_LICZBA << ATOM_IDENT << OPER_ARYTM << WYR_INDEKS << FUNC_CALL << LISTA_WARTOSCI << LISTA_LWYR);
+    if (m_valid && statement && statement->syntacticTree ()) {
+        //statement->syntacticTree ()->typ = ATOM_LICZBA;
+    }
 
-        return m_valid;
+    return m_valid;
 }
 
 void ReturnInstruction::recursiveValidateContents ()
 {
-        validateContents ();
+    validateContents ();
 }
 
 void ReturnInstruction::paintEvent (QPaintEvent *e)

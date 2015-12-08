@@ -25,58 +25,58 @@
 class NSScheme;
 
 class NSSchemeWizard : public QDialog {
-	Q_OBJECT
+    Q_OBJECT
 
-	public:
-	enum SchemeType {SEQUENCE, PROCEDURE, FUNCTION};
-		
-	public:
-	NSSchemeWizard(QWidget *parent);
-	
-	void reset ();
-	
-	QString schemeAuthor ();
-	void setSchemeAuthor (const QString& s);
+public:
+    enum SchemeType {SEQUENCE, PROCEDURE, FUNCTION};
 
-	QString schemeName ();
-	void setSchemeName (const QString& s);
-	
-	QString schemeComment ();
-	void setSchemeComment (const QString& s);
-	
-	NSSchemeWizard::SchemeType schemeType ();
-	void setSchemeType (NSSchemeWizard::SchemeType t);
-	
-	void setContainsPascalCode (bool v);
-	bool containsPascalCode ();
+public:
+    NSSchemeWizard(QWidget *parent);
 
-	void setCheckSyntax (bool v);
-	bool checkSyntax ();
+    void reset ();
 
-	static QString typeToString (NSSchemeWizard::SchemeType t);
-	static NSSchemeWizard::SchemeType stringToType (const QString &s);
-	
-	void fillDataFrom (NSScheme *s);
-	void setDataTo (NSScheme *s);
+    QString schemeAuthor ();
+    void setSchemeAuthor (const QString& s);
 
-	private slots:
-	void on_sequenceRB_clicked (bool v);
-	void on_procedureRB_clicked (bool v);
-	void on_functionRB_clicked (bool v);
-	void on_schemeNameLE_textChanged (const QString &s);
-	void on_schemeCommentTE_textChanged ();
-	void on_schemeAuthorLE_textChanged (const QString &s);
-	void on_checkSyntaxCB_clicked (bool v);
-	void on_pascalCodeGB_clicked (bool v);
+    QString schemeName ();
+    void setSchemeName (const QString& s);
 
-	private:
-	QString m_schemeAuthor;
-	QString m_schemeName;
-	QString m_schemeComment;
-	SchemeType m_schemeType;
-	bool m_pascalCode;
-	bool m_checkSyntax;
-	Ui::NSSchemeWizard ui;
+    QString schemeComment ();
+    void setSchemeComment (const QString& s);
+
+    NSSchemeWizard::SchemeType schemeType ();
+    void setSchemeType (NSSchemeWizard::SchemeType t);
+
+    void setContainsPascalCode (bool v);
+    bool containsPascalCode ();
+
+    void setCheckSyntax (bool v);
+    bool checkSyntax ();
+
+    static QString typeToString (NSSchemeWizard::SchemeType t);
+    static NSSchemeWizard::SchemeType stringToType (const QString &s);
+
+    void fillDataFrom (NSScheme *s);
+    void setDataTo (NSScheme *s);
+
+private slots:
+    void on_sequenceRB_clicked (bool v);
+    void on_procedureRB_clicked (bool v);
+    void on_functionRB_clicked (bool v);
+    void on_schemeNameLE_textChanged (const QString &s);
+    void on_schemeCommentTE_textChanged ();
+    void on_schemeAuthorLE_textChanged (const QString &s);
+    void on_checkSyntaxCB_clicked (bool v);
+    void on_pascalCodeGB_clicked (bool v);
+
+private:
+    QString m_schemeAuthor;
+    QString m_schemeName;
+    QString m_schemeComment;
+    SchemeType m_schemeType;
+    bool m_pascalCode;
+    bool m_checkSyntax;
+    Ui::NSSchemeWizard ui;
 };
 
 extern NSSchemeWizard *schemeWizard;

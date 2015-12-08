@@ -34,139 +34,139 @@ class NaveValueDialog;
 
 class MainWindow : public QMainWindow
 {
-	Q_OBJECT
+    Q_OBJECT
 
-	public:
-	MainWindow();
-	~MainWindow();
-	Instruction* clipboardInstruction ();
-	void setClipboardInstruction (Instruction *i);
-	QString lastUsedDir () const;
-	void setLastUsedDir (const QString& d);
-	SettingsDialog* getSettingsDialog () const;
-	
-	NSScheme *findSchemeForName (const QString &name);
-        void stopExecutionThread ();
+public:
+    MainWindow();
+    ~MainWindow();
+    Instruction* clipboardInstruction ();
+    void setClipboardInstruction (Instruction *i);
+    QString lastUsedDir () const;
+    void setLastUsedDir (const QString& d);
+    SettingsDialog* getSettingsDialog () const;
 
-        QMap<QString, QString>& getNameValueMap ();
+    NSScheme *findSchemeForName (const QString &name);
+    void stopExecutionThread ();
 
-	protected:
-	void closeEvent(QCloseEvent *event);
-        void dropEvent(QDropEvent *event);
-        void dragEnterEvent(QDragEnterEvent *event);
+    QMap<QString, QString>& getNameValueMap ();
 
-	private slots:
-	void newFile ();
-	void open ();
-	void save ();
-	void saveAs ();
-        void saveAll ();
-        void undo ();
-        void cut ();
-	void copy ();
-	void paste ();
-	void settings ();
-	void about ();
-	void appendInstruction ();
-	void insertInstruction ();
-	void editInstruction ();
-	void removeInstruction ();
-	void editScheme ();
-	void editVariables ();
-	void exportScheme ();
-	void exportSchemeSVG ();
-	void putSchemeSVG ();
-	void putSchemeNSS ();
-	void emailScheme ();
-	void updateMenus ();
-	void updateWindowMenu ();
-	NSScheme *createNSScheme (NSSchemeWizard *wizard = 0);
-	void run ();
-	void stop ();
-	void next ();
-	void cont ();
-	
-	void on_thread_finished();
-	void rereadVariables ();
-	
-	private:
-	void do_open (const QString& fileName);
-        bool createExecutionThread ();
+protected:
+    void closeEvent(QCloseEvent *event);
+    void dropEvent(QDropEvent *event);
+    void dragEnterEvent(QDragEnterEvent *event);
 
-	void createActions();
-	void createMenus();
-	void createToolBars();
-	void createStatusBar();
-	void readSettings();
-	void writeSettings();
-	NSScheme *activeNSScheme();
-	NSScheme *findNSScheme(const QString &fileName);
-        bool allSchemesSaved ();
+private slots:
+    void newFile ();
+    void open ();
+    void save ();
+    void saveAs ();
+    void saveAll ();
+    void undo ();
+    void cut ();
+    void copy ();
+    void paste ();
+    void settings ();
+    void about ();
+    void appendInstruction ();
+    void insertInstruction ();
+    void editInstruction ();
+    void removeInstruction ();
+    void editScheme ();
+    void editVariables ();
+    void exportScheme ();
+    void exportSchemeSVG ();
+    void putSchemeSVG ();
+    void putSchemeNSS ();
+    void emailScheme ();
+    void updateMenus ();
+    void updateWindowMenu ();
+    NSScheme *createNSScheme (NSSchemeWizard *wizard = 0);
+    void run ();
+    void stop ();
+    void next ();
+    void cont ();
 
-	QWorkspace *workspace;
-	QSignalMapper *windowMapper;
+    void on_thread_finished();
+    void rereadVariables ();
 
-	QMenu *fileMenu;
-	QMenu *editMenu;
-	QMenu *schemeMenu;
-	QMenu *instrMenu;
-	QMenu *execMenu;
-	QMenu *windowMenu;
-	QMenu *helpMenu;
+private:
+    void do_open (const QString& fileName);
+    bool createExecutionThread ();
 
-	QToolBar *fileToolBar;
-	QToolBar *editToolBar;
-	QToolBar *instrToolBar;
-	QToolBar *schemeToolBar;
-	QToolBar *execToolbar;
+    void createActions();
+    void createMenus();
+    void createToolBars();
+    void createStatusBar();
+    void readSettings();
+    void writeSettings();
+    NSScheme *activeNSScheme();
+    NSScheme *findNSScheme(const QString &fileName);
+    bool allSchemesSaved ();
 
-	QAction *newAct;
-	QAction *openAct;
-	QAction *saveAct;
-	QAction *saveAsAct;
-        QAction *saveAllAct;
-	QAction *exitAct;
-        QAction *undoAct;
-	QAction *cutAct;
-	QAction *copyAct;
-	QAction *pasteAct;
-	QAction *settingsAct;
-	QAction *closeAct;
-	QAction *closeAllAct;
-	QAction *tileAct;
-	QAction *cascadeAct;
-	QAction *nextAct;
-	QAction *previousAct;
-	QAction *separatorAct;
-	QAction *aboutAct;
-	QAction *aboutQtAct;
-	QAction *appendInstrAct;
-	QAction *insertInstrAct;
-	QAction *editInstrAct;
-	QAction *removeInstrAct;
-	QAction *editSchemeAct;
-	QAction *editVarsAct;
-	QAction *exportAct;
-	QAction *exportSVGAct;
-	QAction *putSVGAct;
-	QAction *putNSSAct;
-	QAction *emailAct;
-	QAction *runAct;
-	QAction *stopAct;
-	QAction *nextInstrAct;
-	QAction *contAct;
+    QWorkspace *workspace;
+    QSignalMapper *windowMapper;
 
-	QString m_lastUsedDir;
+    QMenu *fileMenu;
+    QMenu *editMenu;
+    QMenu *schemeMenu;
+    QMenu *instrMenu;
+    QMenu *execMenu;
+    QMenu *windowMenu;
+    QMenu *helpMenu;
 
-	Instruction* p_clipboardInstruction;
+    QToolBar *fileToolBar;
+    QToolBar *editToolBar;
+    QToolBar *instrToolBar;
+    QToolBar *schemeToolBar;
+    QToolBar *execToolbar;
 
-	ExecutionThread *execThread;
+    QAction *newAct;
+    QAction *openAct;
+    QAction *saveAct;
+    QAction *saveAsAct;
+    QAction *saveAllAct;
+    QAction *exitAct;
+    QAction *undoAct;
+    QAction *cutAct;
+    QAction *copyAct;
+    QAction *pasteAct;
+    QAction *settingsAct;
+    QAction *closeAct;
+    QAction *closeAllAct;
+    QAction *tileAct;
+    QAction *cascadeAct;
+    QAction *nextAct;
+    QAction *previousAct;
+    QAction *separatorAct;
+    QAction *aboutAct;
+    QAction *aboutQtAct;
+    QAction *appendInstrAct;
+    QAction *insertInstrAct;
+    QAction *editInstrAct;
+    QAction *removeInstrAct;
+    QAction *editSchemeAct;
+    QAction *editVarsAct;
+    QAction *exportAct;
+    QAction *exportSVGAct;
+    QAction *putSVGAct;
+    QAction *putNSSAct;
+    QAction *emailAct;
+    QAction *runAct;
+    QAction *stopAct;
+    QAction *nextInstrAct;
+    QAction *contAct;
 
-	VariableEditor *m_variableEditor;
+    QString m_lastUsedDir;
 
-	void setExecutionActions (bool running);
+    Instruction* p_clipboardInstruction;
 
-        NaveValueDialog *m_nameValueDialog;
+    ExecutionThread *execThread;
+
+    VariableEditor *m_variableEditor;
+
+    void setExecutionActions (bool running);
+
+    NaveValueDialog *m_nameValueDialog;
 };
 
 extern MainWindow *mainWin;

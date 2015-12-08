@@ -20,41 +20,41 @@ class NSScheme;
 #include "instructioneditor.h"
 
 class InstructionWizardDialog : public QDialog {
-	Q_OBJECT
+    Q_OBJECT
 
-	public:
-	enum InstructionType { Clipboard = 1, Instruction = 2, Selection = 4, Iteration = 8, 
-                               Input = 16, Output = 32, ProcedureCall = 64, FunctionValueReturn = 128};
-		
-	InstructionWizardDialog(MainWindow *parent = 0);
+public:
+    enum InstructionType { Clipboard = 1, Instruction = 2, Selection = 4, Iteration = 8,
+                           Input = 16, Output = 32, ProcedureCall = 64, FunctionValueReturn = 128};
 
-	QPixmap pixmap ();
-	void setPixmap (const QPixmap &p);
+    InstructionWizardDialog(MainWindow *parent = 0);
 
-	QString instructionText ();
-	void setInstructionText (const QString &s);
+    QPixmap pixmap ();
+    void setPixmap (const QPixmap &p);
 
-	QString instructionComment ();
-	void setInstructionComment (const QString &s);
+    QString instructionText ();
+    void setInstructionText (const QString &s);
 
-	int getInstructionType ();
+    QString instructionComment ();
+    void setInstructionComment (const QString &s);
 
-        void reset (NSScheme *s);
+    int getInstructionType ();
 
-	public slots:
-	int execute ();
+    void reset (NSScheme *s);
 
-	private slots:
-	void on_prevButton_clicked ();
-	void on_nextButton_clicked ();
-	void on_instructionReady (bool isReady);
-	void on_finishButton_clicked ();
+public slots:
+    int execute ();
 
-	private:
-	Ui::InstructionWizardDialog ui;
-	::InstructionEditorForm *instructionEditor;
+private slots:
+    void on_prevButton_clicked ();
+    void on_nextButton_clicked ();
+    void on_instructionReady (bool isReady);
+    void on_finishButton_clicked ();
 
-	MainWindow *p_mainWindow;
+private:
+    Ui::InstructionWizardDialog ui;
+    ::InstructionEditorForm *instructionEditor;
+
+    MainWindow *p_mainWindow;
 };
 
 extern ::InstructionWizardDialog *instructionWizard;

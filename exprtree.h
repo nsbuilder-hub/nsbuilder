@@ -19,7 +19,7 @@ class NSScheme;
 class Instruction;
 
 class FunctionMap: public QObject {
-Q_OBJECT
+    Q_OBJECT
 public:
 
     void registerFunction (NSScheme *scheme);
@@ -50,70 +50,70 @@ extern FunctionMap functionMap;
 class ProgramVariables;
 
 enum typ_skladnika {
-	INSTR_SEKWENCJA, INSTR_PODSTAWIENIE, 
-	INSTR_SELEKCJA, INSTR_PETLA, INSTR_PUSTA,
-	ATOM_LICZBA, ATOM_IDENT, ATOM_LOG, 
-	OPER_ARYTM, OPER_LOG, OPER_REL, OPER_NOT, 
-	BWYR, INSTR_PROC, WYR_INDEKS, LISTA_WARTOSCI, 
-	FUNC_CALL, ATOM_NAPIS, LISTA_LWYR
+    INSTR_SEKWENCJA, INSTR_PODSTAWIENIE,
+    INSTR_SELEKCJA, INSTR_PETLA, INSTR_PUSTA,
+    ATOM_LICZBA, ATOM_IDENT, ATOM_LOG,
+    OPER_ARYTM, OPER_LOG, OPER_REL, OPER_NOT,
+    BWYR, INSTR_PROC, WYR_INDEKS, LISTA_WARTOSCI,
+    FUNC_CALL, ATOM_NAPIS, LISTA_LWYR
 };
 
 struct drzewo_skladn {                                                          
-        enum typ_skladnika typ;                                                 
-        struct ident_val_t* zmienna;
-        BaseValue val;
-        char *oper;
-	struct drzewo_skladn* skladnik[3];                              
+    enum typ_skladnika typ;
+    struct ident_val_t* zmienna;
+    BaseValue val;
+    char *oper;
+    struct drzewo_skladn* skladnik[3];
 
-	drzewo_skladn(typ_skladnika t, ident_val_t *id):
-		typ(t), zmienna(id)
-	{
-		skladnik[0] = skladnik[1] = skladnik[2] = 0;
-	}
+    drzewo_skladn(typ_skladnika t, ident_val_t *id):
+        typ(t), zmienna(id)
+    {
+        skladnik[0] = skladnik[1] = skladnik[2] = 0;
+    }
 
-	drzewo_skladn(typ_skladnika t, long v):
-		typ(t)
-	{
-		val.d = Long;
-		val.val = v;
-		skladnik[0] = skladnik[1] = skladnik[2] = 0;
-	}
+    drzewo_skladn(typ_skladnika t, long v):
+        typ(t)
+    {
+        val.d = Long;
+        val.val = v;
+        skladnik[0] = skladnik[1] = skladnik[2] = 0;
+    }
 
-	drzewo_skladn(typ_skladnika t, double v):
-		typ(t)
-	{
-		val.d = Double;
-		val.fval = v;
-		skladnik[0] = skladnik[1] = skladnik[2] = 0;
-	}
+    drzewo_skladn(typ_skladnika t, double v):
+        typ(t)
+    {
+        val.d = Double;
+        val.fval = v;
+        skladnik[0] = skladnik[1] = skladnik[2] = 0;
+    }
 
-	drzewo_skladn(typ_skladnika t, char *op):
-		typ(t), oper(op)
-	{
-		skladnik[0] = skladnik[1] = skladnik[2] = 0;
-	}
-	
-	~drzewo_skladn()
-	{
-		switch (typ) {
-		case OPER_NOT:
-		case OPER_REL:
-		case OPER_LOG:
-		case OPER_ARYTM:
-                        free (oper);
-			break;
-		default:
-			;
-		};
-	}
-        typedef QMap<QString, TypeConstructor> TypeConstructorMap;
-        bool typeCheck(ProgramVariables *vars, QString &failed, TypeConstructorMap identTypes = TypeConstructorMap());
+    drzewo_skladn(typ_skladnika t, char *op):
+        typ(t), oper(op)
+    {
+        skladnik[0] = skladnik[1] = skladnik[2] = 0;
+    }
 
-        /* Liczba wymiarów, dla skalarnej 0, dla tablicy jednowymiarowej 1 itd. */
-        int dimensionCount ();
+    ~drzewo_skladn()
+    {
+        switch (typ) {
+        case OPER_NOT:
+        case OPER_REL:
+        case OPER_LOG:
+        case OPER_ARYTM:
+            free (oper);
+            break;
+        default:
+            ;
+        };
+    }
+    typedef QMap<QString, TypeConstructor> TypeConstructorMap;
+    bool typeCheck(ProgramVariables *vars, QString &failed, TypeConstructorMap identTypes = TypeConstructorMap());
 
-	/* zwraca napisową reprezentację tego typu */
-	QString typeToString (ProgramVariables *vars = 0);
+    /* Liczba wymiarów, dla skalarnej 0, dla tablicy jednowymiarowej 1 itd. */
+    int dimensionCount ();
+
+    /* zwraca napisową reprezentację tego typu */
+    QString typeToString (ProgramVariables *vars = 0);
 };     
 
 #define YYSTYPE drzewo_skladn*
@@ -143,4 +143,3 @@ extern bool typeCheckFailed;
 extern unsigned int textlen;
 
 #endif
-

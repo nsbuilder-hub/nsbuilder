@@ -31,153 +31,153 @@ class MainWindow;
 #include "commands.h"
 
 class NSScheme : public QWidget {
-	Q_OBJECT
-	Q_PROPERTY (QString schemeAuthor READ schemeAuthor() WRITE setSchemeAuthor())
-	Q_PROPERTY (QString schemeName READ schemeName() WRITE setSchemeName())
-	Q_PROPERTY (QString schemeComment READ schemeComment() WRITE setSchemeComment())
-	Q_PROPERTY (bool containsPascalCode READ containsPascalCode() WRITE setContainsPascalCode())
-	Q_PROPERTY (bool checkSyntax READ checkSyntax() WRITE setCheckSyntax())
-        Q_PROPERTY (NSSchemeWizard::SchemeType schemeType READ schemeType() WRITE setSchemeType())
-	Q_ENUMS(NSSchemeWizard::SchemeType)
-	
-	public:
-	NSScheme(MainWindow *parent);
-	~NSScheme();
+    Q_OBJECT
+    Q_PROPERTY (QString schemeAuthor READ schemeAuthor() WRITE setSchemeAuthor())
+    Q_PROPERTY (QString schemeName READ schemeName() WRITE setSchemeName())
+    Q_PROPERTY (QString schemeComment READ schemeComment() WRITE setSchemeComment())
+    Q_PROPERTY (bool containsPascalCode READ containsPascalCode() WRITE setContainsPascalCode())
+    Q_PROPERTY (bool checkSyntax READ checkSyntax() WRITE setCheckSyntax())
+    Q_PROPERTY (NSSchemeWizard::SchemeType schemeType READ schemeType() WRITE setSchemeType())
+    Q_ENUMS(NSSchemeWizard::SchemeType)
 
-        bool isClosing ();
+public:
+    NSScheme(MainWindow *parent);
+    ~NSScheme();
 
-	QString schemeAuthor () const;
-	void setSchemeAuthor (const QString& author);
-			
-	QString schemeName () const;
-	void setSchemeName (QString name);
+    bool isClosing ();
 
-	QString schemeComment () const;
-	void setSchemeComment (QString newComment);
+    QString schemeAuthor () const;
+    void setSchemeAuthor (const QString& author);
 
-	bool containsPascalCode ();
-	void setContainsPascalCode (bool v);
+    QString schemeName () const;
+    void setSchemeName (QString name);
 
-	bool checkSyntax ();
-	void setCheckSyntax (bool v);
+    QString schemeComment () const;
+    void setSchemeComment (QString newComment);
 
-	NSSchemeWizard::SchemeType schemeType () const;
-	void setSchemeType (NSSchemeWizard::SchemeType t);
+    bool containsPascalCode ();
+    void setContainsPascalCode (bool v);
 
-	Sequence* instructions ();
-	void setInstructions (Sequence *s);
-	
-	void appendInstruction ();
-	void insertInstruction ();
-	void editInstruction ();
-	void removeInstruction ();
+    bool checkSyntax ();
+    void setCheckSyntax (bool v);
 
-        bool hasUndoneCommands ();
+    NSSchemeWizard::SchemeType schemeType () const;
+    void setSchemeType (NSSchemeWizard::SchemeType t);
 
-	void editVariables ();
-	void exportScheme ();
-	void exportSchemeSVG ();
-	void putSchemeSVG ();
-	void putSchemeNSS ();
-	void emailScheme ();
+    Sequence* instructions ();
+    void setInstructions (Sequence *s);
 
-	QDomDocument toXMLDocument ();
-	QDomDocument toSVGDocument ();
-	bool fromXMLDocument (QDomDocument& document);
+    void appendInstruction ();
+    void insertInstruction ();
+    void editInstruction ();
+    void removeInstruction ();
 
-	void newFile ();
-	QString currentFile () const;
-	QString userFriendlyCurrentFile () const;
-	bool loadFile (const QString& fileName);
-	bool save ();
-	bool saveAs ();
-	bool modified ();
+    bool hasUndoneCommands ();
 
-        void undo ();
-	void cut ();
-	void copy ();
-	void paste ();
+    void editVariables ();
+    void exportScheme ();
+    void exportSchemeSVG ();
+    void putSchemeSVG ();
+    void putSchemeNSS ();
+    void emailScheme ();
 
-	QColor invalidColor ();
-	QColor selectionColor ();
-	QColor executionColor ();
+    QDomDocument toXMLDocument ();
+    QDomDocument toSVGDocument ();
+    bool fromXMLDocument (QDomDocument& document);
 
-	ProgramVariables* variables ();
-	/* Zwraca argumenty dla schematu będącego procedurą lub funkcją. Dla
+    void newFile ();
+    QString currentFile () const;
+    QString userFriendlyCurrentFile () const;
+    bool loadFile (const QString& fileName);
+    bool save ();
+    bool saveAs ();
+    bool modified ();
+
+    void undo ();
+    void cut ();
+    void copy ();
+    void paste ();
+
+    QColor invalidColor ();
+    QColor selectionColor ();
+    QColor executionColor ();
+
+    ProgramVariables* variables ();
+    /* Zwraca argumenty dla schematu będącego procedurą lub funkcją. Dla
          * sekwencji instrukcji zwraca pustą listę
          */
-	QStringList schemeArguments ();
-        /* Zwraca prawdę jeśli argument jest przekazywany przez referencję (zmienną)
+    QStringList schemeArguments ();
+    /* Zwraca prawdę jeśli argument jest przekazywany przez referencję (zmienną)
          */
-        bool isArgumentByRef (QString name);
+    bool isArgumentByRef (QString name);
 
-        /* Ustawia typ wartości dla argumentów przekazywanych przez referencję */
-        void assertArgumentsRefValues ();
+    /* Ustawia typ wartości dla argumentów przekazywanych przez referencję */
+    void assertArgumentsRefValues ();
 
-	void assignArraySizes ();
+    void assignArraySizes ();
 
-        QString argumentsType();
-        void setFunctionReturnValue (BaseValue bv);
-        BaseValue functionValue ();
+    QString argumentsType();
+    void setFunctionReturnValue (BaseValue bv);
+    BaseValue functionValue ();
 
-	signals:
-	void closing ();
-	
-	public slots:
-	void on_instructionActivated (Instruction *i);
-	void getInput(ExecutionThread *executor, const QString& type, const QString& caption, const QString& message);
-	void showMessage (ExecutionThread *executor, const QString& caption, const QString& message);
-	void on_executionThread_finished ();     
-	
-	protected:
-	void setModified (bool v);
-	virtual void closeEvent (QCloseEvent * e);
+signals:
+    void closing ();
 
-	private slots:
-	void showSyntaxError ();
-	void httpRequestFinished (int, bool);
-	void onDataReadProgress (int done, int total);
-	void onDataSendProgress (int done, int total);
-        void on_indexOutOfBounds (const QString& varName);
+public slots:
+    void on_instructionActivated (Instruction *i);
+    void getInput(ExecutionThread *executor, const QString& type, const QString& caption, const QString& message);
+    void showMessage (ExecutionThread *executor, const QString& caption, const QString& message);
+    void on_executionThread_finished ();
 
-	private:
-	void updateHeaderLabel ();
-        void updateProceduralLabel ();
-	Sequence* findParentSequence ();
-	Instruction* createInstructionFromWizard ();
-	void initQHttp ();
-	bool do_svgExport (QString svgFileName, QString &errorString);
-	void startPutFile (QString file);
-        QString nameValueMapToAppURL ();
+protected:
+    void setModified (bool v);
+    virtual void closeEvent (QCloseEvent * e);
 
-	Instruction *p_activeInstruction;
-	MainWindow *p_mainParent;
-	QString m_schemeName;
-	QString m_schemeComment;
-	NSSchemeWizard::SchemeType m_schemeType;
-	
-	QLabel *headerLabel;
-        QLabel *proceduralLabel;
-	Sequence *m_instructions;
-	ProgramVariables *m_variables;
-        BaseValue functionReturnValue;
-        Commands commands;
+private slots:
+    void showSyntaxError ();
+    void httpRequestFinished (int, bool);
+    void onDataReadProgress (int done, int total);
+    void onDataSendProgress (int done, int total);
+    void on_indexOutOfBounds (const QString& varName);
 
-	QString m_fileName;
-	bool m_isUntitled;
-	bool m_modified;
-        bool m_closing;
+private:
+    void updateHeaderLabel ();
+    void updateProceduralLabel ();
+    Sequence* findParentSequence ();
+    Instruction* createInstructionFromWizard ();
+    void initQHttp ();
+    bool do_svgExport (QString svgFileName, QString &errorString);
+    void startPutFile (QString file);
+    QString nameValueMapToAppURL ();
 
-	QString m_author;
+    Instruction *p_activeInstruction;
+    MainWindow *p_mainParent;
+    QString m_schemeName;
+    QString m_schemeComment;
+    NSSchemeWizard::SchemeType m_schemeType;
 
-	bool m_pascalCode;
-	bool m_checkSyntax;
+    QLabel *headerLabel;
+    QLabel *proceduralLabel;
+    Sequence *m_instructions;
+    ProgramVariables *m_variables;
+    BaseValue functionReturnValue;
+    Commands commands;
 
-	static int sequenceNumber;
-	
-	QFile *putFile;
-	int reqID;
-	QHttp *wwwput;
+    QString m_fileName;
+    bool m_isUntitled;
+    bool m_modified;
+    bool m_closing;
+
+    QString m_author;
+
+    bool m_pascalCode;
+    bool m_checkSyntax;
+
+    static int sequenceNumber;
+
+    QFile *putFile;
+    int reqID;
+    QHttp *wwwput;
 };
 
 QString escape (const QString s);

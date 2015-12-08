@@ -42,16 +42,16 @@ void Action::execute()
 {
     qDebug() << "Action::execute" << type;
     switch (type) {
-        case ADD:
-            parentSequence->insertInstruction (instr, index);
+    case ADD:
+        parentSequence->insertInstruction (instr, index);
         break;
-        case REMOVE:
-            instr = parentSequence->instructionAt (index);
-            parentSequence->removeInstructionAt (index);
+    case REMOVE:
+        instr = parentSequence->instructionAt (index);
+        parentSequence->removeInstructionAt (index);
         break;
-        case EDIT:
-            instr->setContents (newContents);
-            instr->setComment (newComment);
+    case EDIT:
+        instr->setContents (newContents);
+        instr->setComment (newComment);
         break;
     }
 }
@@ -59,14 +59,14 @@ void Action::execute()
 void Action::reverse()
 {
     switch (type) {
-        case ADD:
-            parentSequence->removeInstructionAt (index);
+    case ADD:
+        parentSequence->removeInstructionAt (index);
         break;
-        case REMOVE:
-            parentSequence->insertInstruction (instr, index);
+    case REMOVE:
+        parentSequence->insertInstruction (instr, index);
         break;
-        case EDIT:
-            instr->setContents (prevContents);
+    case EDIT:
+        instr->setContents (prevContents);
         break;
     }
 }
@@ -74,17 +74,17 @@ void Action::reverse()
 QString Action::toString()
 {
     switch (type) {
-        case ADD:
-            return QApplication::tr("Add instruction");
+    case ADD:
+        return QApplication::tr("Add instruction");
         break;
-        case REMOVE:
-            return QApplication::tr("Remove isntruction");
+    case REMOVE:
+        return QApplication::tr("Remove isntruction");
         break;
-        case EDIT:
-            return QApplication::tr("Edit instruction");
+    case EDIT:
+        return QApplication::tr("Edit instruction");
         break;
-        default:
-            return QString::null;
+    default:
+        return QString::null;
     }
 }
 

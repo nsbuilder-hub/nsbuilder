@@ -6,7 +6,7 @@
 #include <QString>
 
 namespace Ui {
-    class NaveValueDialog;
+class NaveValueDialog;
 }
 
 class NaveValueDialog : public QDialog
