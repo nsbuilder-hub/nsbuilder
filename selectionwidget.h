@@ -19,7 +19,8 @@
 #include <QLabel>
 #include <QWidget>
 
-class SelectionWidget : public QWidget {
+class SelectionWidget : public QWidget
+{
 	public:
 	SelectionWidget(QWidget *parent=0, const char * name=0);
 

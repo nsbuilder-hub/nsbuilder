@@ -24,7 +24,7 @@ DEFINES                 += SVN_VER=\\\"$$SVN_VER\\\"
 # flex
 #DEFINES		+= DEBUG1
 # enter/exit
-#DEFINES		+= DEBUGE
+DEFINES		+= DEBUGE
 # execute_statement
 #DEFINES                 += DEBUGX
 # do_validate

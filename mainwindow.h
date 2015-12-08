@@ -39,16 +39,16 @@ class MainWindow : public QMainWindow
 public:
     MainWindow();
     ~MainWindow();
-    Instruction* clipboardInstruction ();
-    void setClipboardInstruction (Instruction *i);
-    QString lastUsedDir () const;
-    void setLastUsedDir (const QString& d);
-    SettingsDialog* getSettingsDialog () const;
+    Instruction* clipboardInstruction();
+    void setClipboardInstruction(Instruction *i);
+    QString lastUsedDir() const;
+    void setLastUsedDir(const QString& d);
+    SettingsDialog* getSettingsDialog() const;
 
-    NSScheme *findSchemeForName (const QString &name);
-    void stopExecutionThread ();
+    NSScheme *findSchemeForName(const QString &name);
+    void stopExecutionThread();
 
-    QMap<QString, QString>& getNameValueMap ();
+    QMap<QString, QString>& getNameValueMap();
 
 protected:
     void closeEvent(QCloseEvent *event);
@@ -56,42 +56,42 @@ protected:
     void dragEnterEvent(QDragEnterEvent *event);
 
 private slots:
-    void newFile ();
-    void open ();
-    void save ();
-    void saveAs ();
-    void saveAll ();
-    void undo ();
-    void cut ();
-    void copy ();
-    void paste ();
-    void settings ();
-    void about ();
-    void appendInstruction ();
-    void insertInstruction ();
-    void editInstruction ();
-    void removeInstruction ();
-    void editScheme ();
-    void editVariables ();
-    void exportScheme ();
-    void exportSchemeSVG ();
-    void putSchemeSVG ();
-    void putSchemeNSS ();
-    void emailScheme ();
-    void updateMenus ();
-    void updateWindowMenu ();
-    NSScheme *createNSScheme (NSSchemeWizard *wizard = 0);
-    void run ();
-    void stop ();
-    void next ();
-    void cont ();
+    void newFile();
+    void open();
+    void save();
+    void saveAs();
+    void saveAll();
+    void undo();
+    void cut();
+    void copy();
+    void paste();
+    void settings();
+    void about();
+    void appendInstruction();
+    void insertInstruction();
+    void editInstruction();
+    void removeInstruction();
+    void editScheme();
+    void editVariables();
+    void exportScheme();
+    void exportSchemeSVG();
+    void putSchemeSVG();
+    void putSchemeNSS();
+    void emailScheme();
+    void updateMenus();
+    void updateWindowMenu();
+    NSScheme *createNSScheme(NSSchemeWizard *wizard = 0);
+    void run();
+    void stop();
+    void next();
+    void cont();
 
     void on_thread_finished();
-    void rereadVariables ();
+    void rereadVariables();
 
 private:
-    void do_open (const QString& fileName);
-    bool createExecutionThread ();
+    void do_open(const QString& fileName);
+    bool createExecutionThread();
 
     void createActions();
     void createMenus();
@@ -101,7 +101,7 @@ private:
     void writeSettings();
     NSScheme *activeNSScheme();
     NSScheme *findNSScheme(const QString &fileName);
-    bool allSchemesSaved ();
+    bool allSchemesSaved();
 
     QWorkspace *workspace;
     QSignalMapper *windowMapper;
@@ -164,7 +164,7 @@ private:
 
     VariableEditor *m_variableEditor;
 
-    void setExecutionActions (bool running);
+    void setExecutionActions(bool running);
 
     NaveValueDialog *m_nameValueDialog;
 };

@@ -5,7 +5,8 @@
 #include <QMap>
 #include <QString>
 
-namespace Ui {
+namespace Ui
+{
 class NaveValueDialog;
 }
 
@@ -17,12 +18,12 @@ public:
     explicit NaveValueDialog(QWidget *parent = 0);
     ~NaveValueDialog();
 
-    QMap<QString, QString>& nameValueMap ();
+    QMap<QString, QString>& nameValueMap();
 
 private slots:
-    void on_accept ();
-    void on_addTB_clicked ();
-    void on_delTB_clicked ();
+    void on_accept();
+    void on_addTB_clicked();
+    void on_delTB_clicked();
 
 private:
     Ui::NaveValueDialog *ui;

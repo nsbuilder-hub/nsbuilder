@@ -24,7 +24,8 @@ class NSScheme;
 
 #include "instruction.h"
 
-class Sequence : public Instruction {
+class Sequence : public Instruction
+{
     Q_OBJECT
 public:
     /**
@@ -34,90 +35,90 @@ public:
     /**
      *
      */
-    int count ();
+    int count();
 
     /**
      *
      * @param num
      */
-    Instruction* instructionAt (int num);
+    Instruction* instructionAt(int num);
 
     /**
      *
      * @param i
      */
-    void appendInstruction (Instruction *i);
+    void appendInstruction(Instruction *i);
 
     /**
      *
      * @param i
      * @param index
      */
-    void insertInstruction (Instruction *i, int index=0);
+    void insertInstruction(Instruction *i, int index=0);
 
     /**
      *
      */
-    void removeInstructionAt (int index=0);
+    void removeInstructionAt(int index=0);
 
     /**
      *
      */
-    void removeInstruction (Instruction *i);
+    void removeInstruction(Instruction *i);
 
     /**
      *
      */
-    int indexOf (Instruction *i);
+    int indexOf(Instruction *i);
 
     /**
      *
      */
-    Instruction* nextInstruction (Instruction *i);
+    Instruction* nextInstruction(Instruction *i);
 
     /**
      *
      * @param newContents
      */
-    virtual void setContents (QString newContents);
+    virtual void setContents(QString newContents);
 
     /**
      *
      * @param newComment
      */
-    virtual void setComment (QString newComment);
+    virtual void setComment(QString newComment);
 
     /**
      *
      * @param newImage
      */
-    virtual void setPixmap (QPixmap newImage);
+    virtual void setPixmap(QPixmap newImage);
 
-    virtual void formatXMLNode (QDomDocument& document, QDomNode& parent);
-    virtual bool setAsXMLNode (QDomNode& node);
-    virtual void formatSVGNode (QDomDocument& document, QDomNode& parent);
+    virtual void formatXMLNode(QDomDocument& document, QDomNode& parent);
+    virtual bool setAsXMLNode(QDomNode& node);
+    virtual void formatSVGNode(QDomDocument& document, QDomNode& parent);
 
-    virtual Instruction * copyOf ();
+    virtual Instruction * copyOf();
 
-    virtual void setScheme (NSScheme *scheme);
+    virtual void setScheme(NSScheme *scheme);
 
-    virtual QSize minimumSizeHint () const;
+    virtual QSize minimumSizeHint() const;
 
     /**
      * Wykonuje instrukcję i zwraca następną instrukcję do wykonania.
      */
-    virtual Instruction* execute (ExecutionThread *executor, bool *wait);
+    virtual Instruction* execute(ExecutionThread *executor, bool *wait);
 
     /**
      * Zwraca i ustawia zawsze prawdę
      */
-    virtual bool validateContents ();
-    virtual void recursiveValidateContents ();
+    virtual bool validateContents();
+    virtual void recursiveValidateContents();
 protected:
     /**
      *
      */
-    virtual void paintEvent (QPaintEvent *e);
+    virtual void paintEvent(QPaintEvent *e);
 private:
     /**
      *

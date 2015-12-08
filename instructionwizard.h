@@ -19,7 +19,8 @@ class NSScheme;
 #include "ui_instructionwizard.h"
 #include "instructioneditor.h"
 
-class InstructionWizardDialog : public QDialog {
+class InstructionWizardDialog : public QDialog
+{
     Q_OBJECT
 
 public:
@@ -28,27 +29,27 @@ public:
 
     InstructionWizardDialog(MainWindow *parent = 0);
 
-    QPixmap pixmap ();
-    void setPixmap (const QPixmap &p);
+    QPixmap pixmap();
+    void setPixmap(const QPixmap &p);
 
-    QString instructionText ();
-    void setInstructionText (const QString &s);
+    QString instructionText();
+    void setInstructionText(const QString &s);
 
-    QString instructionComment ();
-    void setInstructionComment (const QString &s);
+    QString instructionComment();
+    void setInstructionComment(const QString &s);
 
-    int getInstructionType ();
+    int getInstructionType();
 
-    void reset (NSScheme *s);
+    void reset(NSScheme *s);
 
 public slots:
-    int execute ();
+    int execute();
 
 private slots:
-    void on_prevButton_clicked ();
-    void on_nextButton_clicked ();
-    void on_instructionReady (bool isReady);
-    void on_finishButton_clicked ();
+    void on_prevButton_clicked();
+    void on_nextButton_clicked();
+    void on_instructionReady(bool isReady);
+    void on_finishButton_clicked();
 
 private:
     Ui::InstructionWizardDialog ui;

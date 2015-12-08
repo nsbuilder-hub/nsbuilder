@@ -24,7 +24,8 @@
 
 class NSScheme;
 
-class NSSchemeWizard : public QDialog {
+class NSSchemeWizard : public QDialog
+{
     Q_OBJECT
 
 public:
@@ -33,41 +34,41 @@ public:
 public:
     NSSchemeWizard(QWidget *parent);
 
-    void reset ();
+    void reset();
 
-    QString schemeAuthor ();
-    void setSchemeAuthor (const QString& s);
+    QString schemeAuthor();
+    void setSchemeAuthor(const QString& s);
 
-    QString schemeName ();
-    void setSchemeName (const QString& s);
+    QString schemeName();
+    void setSchemeName(const QString& s);
 
-    QString schemeComment ();
-    void setSchemeComment (const QString& s);
+    QString schemeComment();
+    void setSchemeComment(const QString& s);
 
-    NSSchemeWizard::SchemeType schemeType ();
-    void setSchemeType (NSSchemeWizard::SchemeType t);
+    NSSchemeWizard::SchemeType schemeType();
+    void setSchemeType(NSSchemeWizard::SchemeType t);
 
-    void setContainsPascalCode (bool v);
-    bool containsPascalCode ();
+    void setContainsPascalCode(bool v);
+    bool containsPascalCode();
 
-    void setCheckSyntax (bool v);
-    bool checkSyntax ();
+    void setCheckSyntax(bool v);
+    bool checkSyntax();
 
-    static QString typeToString (NSSchemeWizard::SchemeType t);
-    static NSSchemeWizard::SchemeType stringToType (const QString &s);
+    static QString typeToString(NSSchemeWizard::SchemeType t);
+    static NSSchemeWizard::SchemeType stringToType(const QString &s);
 
-    void fillDataFrom (NSScheme *s);
-    void setDataTo (NSScheme *s);
+    void fillDataFrom(NSScheme *s);
+    void setDataTo(NSScheme *s);
 
 private slots:
-    void on_sequenceRB_clicked (bool v);
-    void on_procedureRB_clicked (bool v);
-    void on_functionRB_clicked (bool v);
-    void on_schemeNameLE_textChanged (const QString &s);
-    void on_schemeCommentTE_textChanged ();
-    void on_schemeAuthorLE_textChanged (const QString &s);
-    void on_checkSyntaxCB_clicked (bool v);
-    void on_pascalCodeGB_clicked (bool v);
+    void on_sequenceRB_clicked(bool v);
+    void on_procedureRB_clicked(bool v);
+    void on_functionRB_clicked(bool v);
+    void on_schemeNameLE_textChanged(const QString &s);
+    void on_schemeCommentTE_textChanged();
+    void on_schemeAuthorLE_textChanged(const QString &s);
+    void on_checkSyntaxCB_clicked(bool v);
+    void on_pascalCodeGB_clicked(bool v);
 
 private:
     QString m_schemeAuthor;

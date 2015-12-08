@@ -16,7 +16,7 @@
 
 MainWindow *mainWin;
 
-NSScheme *MainWindow::findSchemeForName (const QString &name)
+NSScheme *MainWindow::findSchemeForName(const QString &name)
 {
 #ifdef DEBUGE
     qDebug("[ENTER] MainWindow::findSchemeForName");
@@ -24,10 +24,10 @@ NSScheme *MainWindow::findSchemeForName (const QString &name)
     NSScheme *result = 0;
 
     QList<QWidget *> windows = workspace->windowList();
-    for (int i = 0; (i < windows.size ()) && (! result); ++i) {
-        NSScheme *child = qobject_cast<NSScheme *>(windows.at (i));
+    for (int i = 0;(i < windows.size()) && (!result); ++i) {
+        NSScheme *child = qobject_cast<NSScheme *>(windows.at(i));
 
-        if (child && (child->schemeName ().section ('(', 0, 0) == name))
+        if (child && (child->schemeName().section('(', 0, 0) == name))
             result = child;
     }
 #ifdef DEBUGE
@@ -39,14 +39,14 @@ NSScheme *MainWindow::findSchemeForName (const QString &name)
 MainWindow::MainWindow():
     execThread(0)
 {
-    initiate_builtin_functions ();
+    initiate_builtin_functions();
 
     settingsDialog = new SettingsDialog(this);
-    QApplication::setStyle (new QPlastiqueStyle);
+    QApplication::setStyle(new QPlastiqueStyle);
 
     workspace = new QWorkspace;
-    setCentralWidget (workspace);
-    workspace->setScrollBarsEnabled (true);
+    setCentralWidget(workspace);
+    workspace->setScrollBarsEnabled(true);
     connect(workspace, SIGNAL(windowActivated(QWidget *)),
             this, SLOT(updateMenus()));
     connect(workspace, SIGNAL(windowActivated(QWidget *)),
@@ -55,40 +55,40 @@ MainWindow::MainWindow():
     connect(windowMapper, SIGNAL(mapped(QWidget *)),
             workspace, SLOT(setActiveWindow(QWidget *)));
 
-    createActions ();
-    createMenus ();
-    createToolBars ();
-    createStatusBar ();
-    updateMenus ();
+    createActions();
+    createMenus();
+    createToolBars();
+    createStatusBar();
+    updateMenus();
 
-    on_thread_finished ();
+    on_thread_finished();
 
     readSettings();
 
     setWindowTitle(tr("NS Builder"));
 
     instructionWizard = new ::InstructionWizardDialog(this);
-    QuestionDialog::initWidgets (this);
+    QuestionDialog::initWidgets(this);
 
     m_variableEditor = new VariableEditor(this);
-    m_variableEditor->setVisible (false);
+    m_variableEditor->setVisible(false);
 
 #ifdef Q_WS_X11
-    m_lastUsedDir = get_current_dir_name ();
+    m_lastUsedDir = get_current_dir_name();
 #endif
 
     p_clipboardInstruction = 0;
 
-    for (int i = 1; i < qApp->argc (); i++) {
-        do_open (qApp->argv ()[i]);
+    for (int i = 1; i < qApp->argc(); i++) {
+        do_open(qApp->argv()[i]);
     }
 
-    setAcceptDrops (true);
+    setAcceptDrops(true);
 
     m_nameValueDialog = new NaveValueDialog(this);
 }
 
-QMap<QString, QString>&  MainWindow::getNameValueMap ()
+QMap<QString, QString>&  MainWindow::getNameValueMap()
 {
     return m_nameValueDialog->nameValueMap();
 }
@@ -110,25 +110,25 @@ void MainWindow::dropEvent(QDropEvent *event)
     if (event->mimeData()->hasUrls()) {
         foreach (QUrl url, event->mimeData()->urls()) {
             qDebug() << url;
-            do_open (url.path ());
+            do_open(url.path());
         }
     }
 }
 
-QString MainWindow::lastUsedDir () const
+QString MainWindow::lastUsedDir() const
 {
     return m_lastUsedDir;
 }
 
-void MainWindow::setLastUsedDir (const QString& s)
+void MainWindow::setLastUsedDir(const QString& s)
 {
     m_lastUsedDir = s;
 }
 
-void MainWindow::closeEvent (QCloseEvent *event)
+void MainWindow::closeEvent(QCloseEvent *event)
 {
     workspace->closeAllWindows();
-    m_variableEditor->hide ();
+    m_variableEditor->hide();
     if (activeNSScheme()) {
         event->ignore();
     } else {
@@ -137,192 +137,192 @@ void MainWindow::closeEvent (QCloseEvent *event)
     }
 }
 
-void MainWindow::newFile ()
+void MainWindow::newFile()
 {
-    schemeWizard->reset ();
+    schemeWizard->reset();
 
-    if (QuestionDialog::showSchemeWizard () == QDialog::Accepted) {
-        NSScheme *child = createNSScheme (schemeWizard);
-        child->newFile ();
-        child->show ();
+    if (QuestionDialog::showSchemeWizard() == QDialog::Accepted) {
+        NSScheme *child = createNSScheme(schemeWizard);
+        child->newFile();
+        child->show();
     }
 }
 
-void MainWindow::do_open (const QString& fileName)
+void MainWindow::do_open(const QString& fileName)
 {
-    NSScheme *existing = findNSScheme (fileName);
+    NSScheme *existing = findNSScheme(fileName);
 
     if (existing) {
-        workspace->setActiveWindow (existing);
+        workspace->setActiveWindow(existing);
         return;
     }
 
-    NSScheme *child = createNSScheme ();
-    if (child->loadFile (fileName)) {
-        statusBar ()->showMessage (tr("File loaded"), 2000);
-        child->show ();
+    NSScheme *child = createNSScheme();
+    if (child->loadFile(fileName)) {
+        statusBar()->showMessage(tr("File loaded"), 2000);
+        child->show();
     } else {
-        child->close ();
+        child->close();
         delete child;
     }
 }
 
-void MainWindow::open ()
+void MainWindow::open()
 {
     QFileDialog fd(this);
-    fd.setAcceptMode (QFileDialog::AcceptOpen);
-    fd.setFilters (QStringList() << tr("NS schemes (*.nss)") << tr("Any files (*.*)"));
-    fd.setFileMode (QFileDialog::ExistingFiles);
-    fd.setDirectory (lastUsedDir ());
+    fd.setAcceptMode(QFileDialog::AcceptOpen);
+    fd.setFilters(QStringList() << tr("NS schemes (*.nss)") << tr("Any files (*.*)"));
+    fd.setFileMode(QFileDialog::ExistingFiles);
+    fd.setDirectory(lastUsedDir());
 
-    if ((fd.exec () == QDialog::Accepted)) {
-        foreach (QString fn, fd.selectedFiles ()) {
-            do_open (fn);
+    if ((fd.exec() == QDialog::Accepted)) {
+        foreach (QString fn, fd.selectedFiles()) {
+            do_open(fn);
         }
     }
 
-    setLastUsedDir (fd.directory ().path ());
+    setLastUsedDir(fd.directory().path());
 }
 
-void MainWindow::save ()
-{
-    bool hasNSScheme = (activeNSScheme () != 0);
-    if (hasNSScheme) {
-        if (activeNSScheme ()->save ())
-            statusBar ()->showMessage (tr("File saved"), 2000);
-    }
-}
-
-void MainWindow::saveAs ()
+void MainWindow::save()
 {
     bool hasNSScheme = (activeNSScheme() != 0);
     if (hasNSScheme) {
-        if (activeNSScheme ()->saveAs ())
-            statusBar ()->showMessage (tr("File saved"), 2000);
+        if (activeNSScheme()->save())
+            statusBar()->showMessage(tr("File saved"), 2000);
     }
 }
 
-void MainWindow::saveAll ()
+void MainWindow::saveAs()
+{
+    bool hasNSScheme = (activeNSScheme() != 0);
+    if (hasNSScheme) {
+        if (activeNSScheme()->saveAs())
+            statusBar()->showMessage(tr("File saved"), 2000);
+    }
+}
+
+void MainWindow::saveAll()
 {
     QList<QWidget *> windows = workspace->windowList();
 
     for (int i = 0; i < windows.size(); ++i) {
         NSScheme *child = qobject_cast<NSScheme *>(windows.at(i));
-        if (! child)
+        if (!child)
             continue;
 
-        child->save ();
+        child->save();
     }
 }
 
-void MainWindow::undo ()
+void MainWindow::undo()
 {
     bool hasNSScheme = (activeNSScheme() != 0);
     if (hasNSScheme) {
-        activeNSScheme ()->undo ();
+        activeNSScheme()->undo();
         updateMenus();
     }
 }
 
-void MainWindow::cut ()
+void MainWindow::cut()
 {
     bool hasNSScheme = (activeNSScheme() != 0);
     if (hasNSScheme) {
-        activeNSScheme ()->cut ();
+        activeNSScheme()->cut();
         updateMenus();
     }
 }
 
-void MainWindow::copy ()
+void MainWindow::copy()
 {
     bool hasNSScheme = (activeNSScheme() != 0);
     if (hasNSScheme) {
-        activeNSScheme ()->copy ();
+        activeNSScheme()->copy();
         updateMenus();
     }
 }
 
-void MainWindow::paste ()
+void MainWindow::paste()
 {
     bool hasNSScheme = (activeNSScheme() != 0);
     if (hasNSScheme) {
-        activeNSScheme ()->paste ();
+        activeNSScheme()->paste();
         updateMenus();
     }
 }
 
-void MainWindow::settings ()
+void MainWindow::settings()
 {
-    if (settingsDialog->exec () == QDialog::Accepted) {
-        foreach (QWidget *window, workspace->windowList ()) {
-            NSScheme *mdiChild = qobject_cast<NSScheme*> (window);
-            mdiChild->setFont (settingsDialog->schemeFont ());
+    if (settingsDialog->exec() == QDialog::Accepted) {
+        foreach (QWidget *window, workspace->windowList()) {
+            NSScheme *mdiChild = qobject_cast<NSScheme*>(window);
+            mdiChild->setFont(settingsDialog->schemeFont());
         }
     }
 }
 
-void MainWindow::about ()
+void MainWindow::about()
 {
     QString aboutTemplate = tr("<h1>This is NS scheme builder.</h1><p>Author: Aleksander Wojdyga<br/>Version: %1<br/>URL: <a href=\"https://code.google.com/p/nsbuilder/\">https://code.google.com/p/nsbuilder/</a></p><p>Windows installer: Jakub Kosid&#0322;o</p>");
-    QMessageBox::about (this, tr("About NS Builder"), aboutTemplate.arg(SVN_VER));
+    QMessageBox::about(this, tr("About NS Builder"), aboutTemplate.arg(SVN_VER));
 }
 
-void MainWindow::appendInstruction ()
+void MainWindow::appendInstruction()
 {
     bool hasNSScheme = (activeNSScheme() != 0);
     if (hasNSScheme) {
-        activeNSScheme ()->appendInstruction ();
+        activeNSScheme()->appendInstruction();
         updateMenus();
     }
 }
 
-void MainWindow::insertInstruction ()
+void MainWindow::insertInstruction()
 {
     bool hasNSScheme = (activeNSScheme() != 0);
     if (hasNSScheme) {
-        activeNSScheme ()->insertInstruction ();
+        activeNSScheme()->insertInstruction();
         updateMenus();
     }
 }
 
-void MainWindow::editInstruction ()
+void MainWindow::editInstruction()
 {
     bool hasNSScheme = (activeNSScheme() != 0);
     if (hasNSScheme) {
-        activeNSScheme ()->editInstruction ();
+        activeNSScheme()->editInstruction();
         updateMenus();
     }
 }
 
-void MainWindow::removeInstruction ()
+void MainWindow::removeInstruction()
 {
     bool hasNSScheme = (activeNSScheme() != 0);
     if (hasNSScheme) {
-        activeNSScheme ()->removeInstruction ();
+        activeNSScheme()->removeInstruction();
         updateMenus();
     }
 }
 
-void MainWindow::editScheme ()
+void MainWindow::editScheme()
 {
     NSScheme *s;
 
-    if ((s = activeNSScheme ())) {
-        schemeWizard->fillDataFrom (s);
+    if ((s = activeNSScheme())) {
+        schemeWizard->fillDataFrom(s);
 
-        if (QuestionDialog::showSchemeWizard (tr("Edit scheme properties")) == QDialog::Accepted) {
-            schemeWizard->setDataTo (s);
+        if (QuestionDialog::showSchemeWizard(tr("Edit scheme properties")) == QDialog::Accepted) {
+            schemeWizard->setDataTo(s);
         }
     }
 }
 
-void MainWindow::editVariables ()
+void MainWindow::editVariables()
 {
     NSScheme *s;
 
-    if ((s = activeNSScheme ())) {
-        s->assignArraySizes ();
-        m_variableEditor->editSchemeVariables (s);
+    if ((s = activeNSScheme())) {
+        s->assignArraySizes();
+        m_variableEditor->editSchemeVariables(s);
     }
 }
 
@@ -330,7 +330,7 @@ void MainWindow::exportScheme()
 {
     bool hasNSScheme = (activeNSScheme() != 0);
     if (hasNSScheme) {
-        activeNSScheme ()->exportScheme ();
+        activeNSScheme()->exportScheme();
     }
 }
 
@@ -338,7 +338,7 @@ void MainWindow::exportSchemeSVG()
 {
     bool hasNSScheme = (activeNSScheme() != 0);
     if (hasNSScheme) {
-        activeNSScheme ()->exportSchemeSVG ();
+        activeNSScheme()->exportSchemeSVG();
     }
 }
 
@@ -347,8 +347,8 @@ void MainWindow::putSchemeSVG()
     NSScheme *s = activeNSScheme();
     bool hasNSScheme = (s != 0);
     if (hasNSScheme) {
-        if (s->save ())
-            s->putSchemeSVG ();
+        if (s->save())
+            s->putSchemeSVG();
     }
 }
 
@@ -357,9 +357,9 @@ void MainWindow::putSchemeNSS()
     NSScheme *s = activeNSScheme();
     bool hasNSScheme = (s != 0);
     if (hasNSScheme) {
-        if (s->save ())
+        if (s->save())
             if (m_nameValueDialog->exec() == QDialog::Accepted)
-                s->putSchemeNSS ();
+                s->putSchemeNSS();
     }
 }
 
@@ -367,7 +367,7 @@ void MainWindow::emailScheme()
 {
     bool hasNSScheme = (activeNSScheme() != 0);
     if (hasNSScheme) {
-        activeNSScheme ()->emailScheme ();
+        activeNSScheme()->emailScheme();
     }
 }
 
@@ -376,7 +376,7 @@ void MainWindow::updateMenus()
     bool hasNSScheme = (activeNSScheme() != 0);
     saveAct->setEnabled(hasNSScheme);
     saveAsAct->setEnabled(hasNSScheme);
-    undoAct->setEnabled(hasNSScheme && activeNSScheme()->hasUndoneCommands ());
+    undoAct->setEnabled(hasNSScheme && activeNSScheme()->hasUndoneCommands());
     pasteAct->setEnabled(hasNSScheme);
     closeAct->setEnabled(hasNSScheme);
     closeAllAct->setEnabled(hasNSScheme);
@@ -412,28 +412,25 @@ void MainWindow::updateWindowMenu()
         } else {
             text = tr("%1. %2").arg(i + 1).arg(child->userFriendlyCurrentFile());
         }
-        QAction *action  = windowMenu->addAction (text);
-        action->setCheckable (true);
-        action->setChecked (child == activeNSScheme ());
+        QAction *action  = windowMenu->addAction(text);
+        action->setCheckable(true);
+        action->setChecked(child == activeNSScheme());
         connect(action, SIGNAL(triggered()), windowMapper, SLOT(map()));
         windowMapper->setMapping(action, child);
     }
 }
 
-NSScheme *MainWindow::createNSScheme (NSSchemeWizard *wizard)
+NSScheme *MainWindow::createNSScheme(NSSchemeWizard *wizard)
 {
     NSScheme *child = new NSScheme(this);
 
     if (wizard) {
-        wizard->setDataTo (child);
+        wizard->setDataTo(child);
     }
 
     workspace->addWindow(child);
 
-    //	connect(child, SIGNAL(copyAvailable(bool)), cutAct, SLOT(setEnabled(bool)));
-    //	connect(child, SIGNAL(copyAvailable(bool)), copyAct, SLOT(setEnabled(bool)));
-
-    child->resize (240, 180);
+    child->resize(240, 180);
 
     return child;
 }
@@ -461,7 +458,7 @@ void MainWindow::createActions()
 
     saveAllAct = new QAction(QIcon(":/images/filesaveall.png"), tr("Save a&ll"), this);
     saveAllAct->setShortcut(tr("Ctrl+Shift+S"));
-    saveAllAct->setStatusTip (tr("Save all modified documents"));
+    saveAllAct->setStatusTip(tr("Save all modified documents"));
     connect(saveAllAct, SIGNAL(triggered()), this, SLOT(saveAll()));
 
     exitAct = new QAction(tr("E&xit"), this);
@@ -476,7 +473,7 @@ void MainWindow::createActions()
     connect(cutAct, SIGNAL(triggered()), this, SLOT(cut()));
 
     undoAct = new QAction(QIcon(":/images/editundo.png"), tr("&Undo"), this);
-    undoAct->setShortcut (tr("Ctrl+Z"));
+    undoAct->setShortcut(tr("Ctrl+Z"));
     undoAct->setStatusTip(tr("Undo last command"));
     connect(undoAct, SIGNAL(triggered()), this, SLOT(undo()));
 
@@ -494,8 +491,8 @@ void MainWindow::createActions()
 
 
     settingsAct= new QAction(tr("&Settings"), this);
-    settingsAct->setStatusTip (tr("Edit application's settings"));
-    connect (settingsAct, SIGNAL(triggered()), this, SLOT(settings()));
+    settingsAct->setStatusTip(tr("Edit application's settings"));
+    connect(settingsAct, SIGNAL(triggered()), this, SLOT(settings()));
 
     closeAct = new QAction(tr("Cl&ose"), this);
     closeAct->setShortcut(tr("Ctrl+W"));
@@ -587,21 +584,21 @@ void MainWindow::createActions()
     connect(emailAct, SIGNAL(triggered()), this, SLOT(emailScheme()));
 
     runAct = new QAction(QIcon(":/images/run.png"), tr("Run"), this);
-    runAct->setShortcut (tr("F9"));
-    runAct->setStatusTip (tr("Run scheme"));
+    runAct->setShortcut(tr("F9"));
+    runAct->setStatusTip(tr("Run scheme"));
     connect(runAct, SIGNAL(triggered()), this, SLOT(run()));
 
     stopAct = new QAction(QIcon(":/images/stop.png"), tr("Stop"), this);
-    stopAct->setStatusTip (tr("Stop execution"));
+    stopAct->setStatusTip(tr("Stop execution"));
     connect(stopAct, SIGNAL(triggered()), this, SLOT(stop()));
 
     nextInstrAct = new QAction(QIcon(":/images/next.png"), tr("Next"), this);
-    nextAct->setShortcut (tr("F8"));
-    nextInstrAct->setStatusTip (tr("Next instruction"));
+    nextAct->setShortcut(tr("F8"));
+    nextInstrAct->setStatusTip(tr("Next instruction"));
     connect(nextInstrAct, SIGNAL(triggered()), this, SLOT(next()));
 
     contAct = new QAction(QIcon(":/images/cont.png"), tr("Continue"), this);
-    contAct->setStatusTip (tr("Continue execution"));
+    contAct->setStatusTip(tr("Continue execution"));
     connect(contAct, SIGNAL(triggered()), this, SLOT(cont()));
 }
 
@@ -623,26 +620,25 @@ void MainWindow::createMenus()
     editMenu->addAction(pasteAct);
     editMenu->addAction(settingsAct);
 
-    schemeMenu = menuBar ()->addMenu (tr("&Scheme"));
-    schemeMenu->addAction (editSchemeAct);
-    schemeMenu->addAction (editVarsAct);
-    schemeMenu->addAction (exportAct);
-    schemeMenu->addAction (exportSVGAct);
-    schemeMenu->addAction (putSVGAct);
-    schemeMenu->addAction (putNSSAct);
-    //schemeMenu->addAction (emailAct);
+    schemeMenu = menuBar()->addMenu(tr("&Scheme"));
+    schemeMenu->addAction(editSchemeAct);
+    schemeMenu->addAction(editVarsAct);
+    schemeMenu->addAction(exportAct);
+    schemeMenu->addAction(exportSVGAct);
+    schemeMenu->addAction(putSVGAct);
+    schemeMenu->addAction(putNSSAct);
 
-    instrMenu = menuBar()->addMenu (tr("&Instructions"));
-    instrMenu->addAction (appendInstrAct);
-    instrMenu->addAction (insertInstrAct);
-    instrMenu->addAction (editInstrAct);
-    instrMenu->addAction (removeInstrAct);
+    instrMenu = menuBar()->addMenu(tr("&Instructions"));
+    instrMenu->addAction(appendInstrAct);
+    instrMenu->addAction(insertInstrAct);
+    instrMenu->addAction(editInstrAct);
+    instrMenu->addAction(removeInstrAct);
 
-    execMenu = menuBar ()->addMenu (tr("E&xecution"));
-    execMenu->addAction (runAct);
-    execMenu->addAction (stopAct);
-    execMenu->addAction (nextInstrAct);
-    execMenu->addAction (contAct);
+    execMenu = menuBar()->addMenu(tr("E&xecution"));
+    execMenu->addAction(runAct);
+    execMenu->addAction(stopAct);
+    execMenu->addAction(nextInstrAct);
+    execMenu->addAction(contAct);
 
     windowMenu = menuBar()->addMenu(tr("&Window"));
     connect(windowMenu, SIGNAL(aboutToShow()), this, SLOT(updateWindowMenu()));
@@ -669,25 +665,24 @@ void MainWindow::createToolBars()
     editToolBar->addAction(pasteAct);
 
     schemeToolBar = addToolBar(tr("Scheme"));
-    schemeToolBar->addAction (editSchemeAct);
-    schemeToolBar->addAction (editVarsAct);
-    schemeToolBar->addAction (exportAct);
-    schemeToolBar->addAction (exportSVGAct);
-    schemeToolBar->addAction (putSVGAct);
-    schemeToolBar->addAction (putNSSAct);
-    //schemeToolBar->addAction (emailAct);
+    schemeToolBar->addAction(editSchemeAct);
+    schemeToolBar->addAction(editVarsAct);
+    schemeToolBar->addAction(exportAct);
+    schemeToolBar->addAction(exportSVGAct);
+    schemeToolBar->addAction(putSVGAct);
+    schemeToolBar->addAction(putNSSAct);
 
     instrToolBar = addToolBar(tr("Instructions"));
-    instrToolBar->addAction (appendInstrAct);
-    instrToolBar->addAction (insertInstrAct);
-    instrToolBar->addAction (editInstrAct);
-    instrToolBar->addAction (removeInstrAct);
+    instrToolBar->addAction(appendInstrAct);
+    instrToolBar->addAction(insertInstrAct);
+    instrToolBar->addAction(editInstrAct);
+    instrToolBar->addAction(removeInstrAct);
 
-    execToolbar = addToolBar (tr("Execution"));
-    execToolbar->addAction (runAct);
-    execToolbar->addAction (stopAct);
-    execToolbar->addAction (nextInstrAct);
-    execToolbar->addAction (contAct);
+    execToolbar = addToolBar(tr("Execution"));
+    execToolbar->addAction(runAct);
+    execToolbar->addAction(stopAct);
+    execToolbar->addAction(nextInstrAct);
+    execToolbar->addAction(contAct);
 }
 
 void MainWindow::createStatusBar()
@@ -697,43 +692,43 @@ void MainWindow::createStatusBar()
 
 void MainWindow::readSettings()
 {
-    move (settingsDialog->position ());
-    resize (settingsDialog->size ());
+    move(settingsDialog->position());
+    resize(settingsDialog->size());
 }
 
 void MainWindow::writeSettings()
 {
-    settingsDialog->setPosition (pos());
-    settingsDialog->setSize (size());
+    settingsDialog->setPosition(pos());
+    settingsDialog->setSize(size());
 }
 
 NSScheme *MainWindow::activeNSScheme()
 {
-    if (workspace->activeWindow ())
-        return qobject_cast<NSScheme *>(workspace->activeWindow ());
+    if (workspace->activeWindow())
+        return qobject_cast<NSScheme *>(workspace->activeWindow());
     else
         return 0;
 }
 
-NSScheme *MainWindow::findNSScheme (const QString &fileName)
+NSScheme *MainWindow::findNSScheme(const QString &fileName)
 {
-    QString canonicalFilePath = QFileInfo(fileName).canonicalFilePath ();
+    QString canonicalFilePath = QFileInfo(fileName).canonicalFilePath();
 
-    foreach (QWidget *window, workspace->windowList ()) {
-        NSScheme *mdiChild = qobject_cast<NSScheme*> (window);
-        if (mdiChild->currentFile () == canonicalFilePath)
+    foreach (QWidget *window, workspace->windowList()) {
+        NSScheme *mdiChild = qobject_cast<NSScheme*>(window);
+        if (mdiChild->currentFile() == canonicalFilePath)
             return mdiChild;
     }
     return 0;
 }
 
-Instruction* MainWindow::clipboardInstruction ()
+Instruction* MainWindow::clipboardInstruction()
 {
     qDebug("MainWindow::clipboardInstruction");
     return p_clipboardInstruction;
 }
 
-void MainWindow::setClipboardInstruction (Instruction *i)
+void MainWindow::setClipboardInstruction(Instruction *i)
 {
     if (p_clipboardInstruction)
         delete p_clipboardInstruction;
@@ -741,19 +736,19 @@ void MainWindow::setClipboardInstruction (Instruction *i)
     p_clipboardInstruction = i;
 }
 
-SettingsDialog* MainWindow::getSettingsDialog () const
+SettingsDialog* MainWindow::getSettingsDialog() const
 {
     return settingsDialog;
 }
 
-bool MainWindow::createExecutionThread ()
+bool MainWindow::createExecutionThread()
 {
-    NSScheme *scheme = qobject_cast<NSScheme *>(workspace->activeWindow ());
-    if (! scheme) {
+    NSScheme *scheme = qobject_cast<NSScheme *>(workspace->activeWindow());
+    if (!scheme) {
         return false;
     }
     if ((scheme->schemeType() == NSSchemeWizard::PROCEDURE) || (scheme->schemeType() == NSSchemeWizard::FUNCTION)) {
-        QMessageBox::warning (this, tr("Execution"), tr("Cannot run procedure or function."));
+        QMessageBox::warning(this, tr("Execution"), tr("Cannot run procedure or function."));
         return false;
     }
 
@@ -761,18 +756,18 @@ bool MainWindow::createExecutionThread ()
     connect(execThread, SIGNAL(finished()), scheme, SLOT(on_executionThread_finished()));
     connect(execThread, SIGNAL(finished()), this, SLOT(on_thread_finished()));
 #ifdef RUN_IS_STEPPING
-    execThread->setSingleStepping (true);
-    execThread->executeNextStep ();
+    execThread->setSingleStepping(true);
+    execThread->executeNextStep();
 #endif
-    setExecutionActions (true);
+    setExecutionActions(true);
 
     return true;
 }
 
-bool MainWindow::allSchemesSaved ()
+bool MainWindow::allSchemesSaved()
 {
-    foreach (QWidget *window, workspace->windowList ()) {
-        NSScheme *scheme = qobject_cast<NSScheme*> (window);
+    foreach (QWidget *window, workspace->windowList()) {
+        NSScheme *scheme = qobject_cast<NSScheme*>(window);
 
         if (scheme && scheme->modified())
             return false;
@@ -781,92 +776,88 @@ bool MainWindow::allSchemesSaved ()
     return true;
 }
 
-void MainWindow::run ()
+void MainWindow::run()
 {
-    if (workspace->activeWindow ()) {
-        NSScheme *s = activeNSScheme ();
-        if (! s) {
-            QMessageBox::warning (this, tr("Execution"), tr("No active NS scheme"));
+    if (workspace->activeWindow()) {
+        NSScheme *s = activeNSScheme();
+        if (!s) {
+            QMessageBox::warning(this, tr("Execution"), tr("No active NS scheme"));
             return;
         }
-        if (! s->containsPascalCode ()) {
-            QMessageBox::warning (this, tr("Execution"), tr("Scheme does not contain Pascal code"));
+        if (!s->containsPascalCode()) {
+            QMessageBox::warning(this, tr("Execution"), tr("Scheme does not contain Pascal code"));
             return;
         }
-        if (! allSchemesSaved ()) {
-            if (QMessageBox::question (this,
+        if (!allSchemesSaved()) {
+            if (QMessageBox::question(this,
                                        tr("Execution"),
                                        tr("<center>All schemes have to be saved before execution.<p>Save all now?"),
                                        QMessageBox::SaveAll | QMessageBox::Cancel,
                                        QMessageBox::Cancel)
                     == QMessageBox::SaveAll) {
                 saveAll();
-                if (! allSchemesSaved ())
+                if (!allSchemesSaved())
                     return;
             } else
                 return;
         }
         if (execThread == 0) {
-            if (createExecutionThread ())
-                execThread->start ();
+            if (createExecutionThread())
+                execThread->start();
         } else {
-            QMessageBox::warning (this, tr("Execution"), tr("Already executing scheme"));
+            QMessageBox::warning(this, tr("Execution"), tr("Already executing scheme"));
         }
     }
 }
 
-void MainWindow::setExecutionActions (bool running)
+void MainWindow::setExecutionActions(bool running)
 {
-    runAct->setEnabled (! running);
-    stopAct->setEnabled (running);
+    runAct->setEnabled(!running);
+    stopAct->setEnabled(running);
 #ifdef RUN_IS_STEPPING
-    nextInstrAct->setEnabled (running);
+    nextInstrAct->setEnabled(running);
 #else
-    nextInstrAct->setEnabled (true);
+    nextInstrAct->setEnabled(true);
 #endif
-    contAct->setEnabled (running);
+    contAct->setEnabled(running);
 }
 
 void MainWindow::on_thread_finished()
 {
-    setExecutionActions (false);
+    setExecutionActions(false);
 
     if (execThread) {
         execThread->deleteLater();
     }
-    //		execThread->wait (1000);
-    //		delete execThread;
     execThread = 0;
 }
 
-void MainWindow::stopExecutionThread ()
+void MainWindow::stopExecutionThread()
 {
     if (execThread) {
-        execThread->stopSchemeExecution ();
+        execThread->stopSchemeExecution();
     }
 }
 
-void MainWindow::stop ()
+void MainWindow::stop()
 {
-    stopExecutionThread ();
-
-    //on_thread_finished ();
+    stopExecutionThread();
 }
 
-void MainWindow::next ()
+void MainWindow::next()
 {
-    if (workspace->activeWindow () == 0) {
+    if (workspace->activeWindow() == 0) {
         return;
     }
 #ifdef RUN_IS_STEPPING
     if (execThread) {
-        execThread->executeNextStep ();
+        execThread->executeNextStep();
     }
 #else
     if (execThread) {
-        execThread->executeNextStep ();
+        execThread->executeNextStep();
     } else {
-        if (createExecutionThread ()) {
+        if (createExecutionThread()) {
             execThread->setSingleStepping(true);
             execThread->executeNextStep();
             execThread->start();
@@ -875,17 +866,17 @@ void MainWindow::next ()
 #endif
 }
 
-void MainWindow::cont ()
+void MainWindow::cont()
 {
     if (execThread) {
-        execThread->setSingleStepping (false);
-        execThread->executeNextStep ();
+        execThread->setSingleStepping(false);
+        execThread->executeNextStep();
     }
 }
 
-void MainWindow::rereadVariables ()
+void MainWindow::rereadVariables()
 {
-    if (m_variableEditor->isVisible ())
-        editVariables ();
+    if (m_variableEditor->isVisible())
+        editVariables();
 }
 

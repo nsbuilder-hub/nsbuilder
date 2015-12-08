@@ -10,66 +10,66 @@ QuestionDialog *schemeWizardQD;
 QuestionDialog::QuestionDialog(QWidget *parent)
     :QDialog(parent)
 {
-    ui.setupUi (this);
+    ui.setupUi(this);
 }
 
-void QuestionDialog::setWidget (QWidget *w)
+void QuestionDialog::setWidget(QWidget *w)
 {
-    ui.contentsFrame->addWidget (w);
-    ui.contentsFrame->setCurrentWidget (w);
+    ui.contentsFrame->addWidget(w);
+    ui.contentsFrame->setCurrentWidget(w);
 }
 
-void QuestionDialog::initWidgets (QWidget *parent)
+void QuestionDialog::initWidgets(QWidget *parent)
 {
     editorForm = new InstructionEditorForm(0);
-    editorForm->setVisible (false);
+    editorForm->setVisible(false);
     editorFormQD = new QuestionDialog(parent);
-    editorFormQD->setWindowTitle (tr("Edit instruction"));
-    editorFormQD->setWidget (editorForm);
-    //editorFormQD->hide ();
+    editorFormQD->setWindowTitle(tr("Edit instruction"));
+    editorFormQD->setWidget(editorForm);
+    //editorFormQD->hide();
 
     schemeWizard = new NSSchemeWizard(0);
-    schemeWizard->setVisible (false);
+    schemeWizard->setVisible(false);
     schemeWizardQD = new QuestionDialog(parent);
-    schemeWizardQD->setWindowTitle (tr("NS scheme wizard"));
-    schemeWizardQD->setWidget (schemeWizard);
-    //schemeWizardQD->hide ();
+    schemeWizardQD->setWindowTitle(tr("NS scheme wizard"));
+    schemeWizardQD->setWidget(schemeWizard);
+    //schemeWizardQD->hide();
 }
 
-int QuestionDialog::showEditorForm (const QString &title)
+int QuestionDialog::showEditorForm(const QString &title)
 {
     int result;
 #ifdef DEBUG4
     qDebug()<< "[ENTER] QuestionDialog::showEditorForm";
 #endif
-    editorForm->setVisible (true);
-    if (! title.isEmpty ()) {
-        QString t = editorFormQD->windowTitle ();
-        editorFormQD->setWindowTitle (title);
-        result = editorFormQD->exec ();
-        editorFormQD->setWindowTitle (t);
+    editorForm->setVisible(true);
+    if (!title.isEmpty()) {
+        QString t = editorFormQD->windowTitle();
+        editorFormQD->setWindowTitle(title);
+        result = editorFormQD->exec();
+        editorFormQD->setWindowTitle(t);
     } else
-        result = editorFormQD->exec ();
+        result = editorFormQD->exec();
 #ifdef DEBUG4
     qDebug()<< "[EXIT] QuestionDialog::showEditorForm";
 #endif
     return result;
 }
 
-int QuestionDialog::showSchemeWizard (const QString &title)
+int QuestionDialog::showSchemeWizard(const QString &title)
 {
     int result;
 #ifdef DEBUG4
     qDebug()<< "[ENTER] QuestionDialog::showSchemeWizard";
 #endif
-    schemeWizard->setVisible (true);
-    if (! title.isEmpty ()) {
-        QString t = schemeWizardQD->windowTitle ();
-        schemeWizardQD->setWindowTitle (title);
-        result = schemeWizardQD->exec ();
-        schemeWizardQD->setWindowTitle (t);
+    schemeWizard->setVisible(true);
+    if (!title.isEmpty()) {
+        QString t = schemeWizardQD->windowTitle();
+        schemeWizardQD->setWindowTitle(title);
+        result = schemeWizardQD->exec();
+        schemeWizardQD->setWindowTitle(t);
     } else
-        result = schemeWizardQD->exec ();
+        result = schemeWizardQD->exec();
 #ifdef DEBUG4
     qDebug()<< "[EXIT] QuestionDialog::showSchemeWizard";
 #endif

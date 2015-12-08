@@ -7,11 +7,12 @@
 #include "sequence.h"
 #include "instruction.h"
 
-class Action {
+class Action
+{
 public:
-    static Action* newAddInstruction (Sequence *s, Instruction *i, int index);
-    static Action* newRemoveInstruction (Sequence *s, Instruction *i, int index);
-    static Action* newEditInstruction (Instruction *i, QString prevContents, QString newContents, QString prevComment, QString newComment);
+    static Action* newAddInstruction(Sequence *s, Instruction *i, int index);
+    static Action* newRemoveInstruction(Sequence *s, Instruction *i, int index);
+    static Action* newEditInstruction(Instruction *i, QString prevContents, QString newContents, QString prevComment, QString newComment);
 
     void execute();
     void reverse();
@@ -32,10 +33,10 @@ class Commands
 {
 public:
     Commands();
-    bool isEmpty ();
-    void doAction (Action *a);
-    void undoAction ();
-    QString lastActionString ();
+    bool isEmpty();
+    void doAction(Action *a);
+    void undoAction();
+    QString lastActionString();
 private:
     QStack<Action*> actionStack;
 };

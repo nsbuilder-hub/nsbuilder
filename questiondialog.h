@@ -15,17 +15,18 @@
 
 #include "ui_questiondialog.h"
 
-class QuestionDialog : public QDialog {
+class QuestionDialog : public QDialog
+{
     Q_OBJECT
 
 public:
     QuestionDialog(QWidget *parent = 0);
 
-    void setWidget (QWidget *w);
+    void setWidget(QWidget *w);
 
-    static void initWidgets (QWidget *parent);
-    static int showEditorForm (const QString &title = QString::null);
-    static int showSchemeWizard (const QString &title = QString::null);
+    static void initWidgets(QWidget *parent);
+    static int showEditorForm(const QString &title = QString::null);
+    static int showSchemeWizard(const QString &title = QString::null);
 
 private:
     Ui::QuestionDialog ui;

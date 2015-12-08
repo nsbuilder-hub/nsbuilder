@@ -13,30 +13,31 @@ extern QVector<QString> builtinFuncIdents;
 extern QVector<QString> builtinFuncArgs;
 extern QVector<QString> builtinFuncResults;
 extern QVector<Type*> builtinFuncArgType;
-void initiate_builtin_functions ();
+void initiate_builtin_functions();
 
 class NSScheme;
 class Instruction;
 
-class FunctionMap: public QObject {
+class FunctionMap: public QObject
+{
     Q_OBJECT
 public:
 
-    void registerFunction (NSScheme *scheme);
-    void unregisterFunction (NSScheme *scheme);
+    void registerFunction(NSScheme *scheme);
+    void unregisterFunction(NSScheme *scheme);
 
-    void registerProcedure (NSScheme *scheme);
-    void unregisterProcedure (NSScheme *scheme);
+    void registerProcedure(NSScheme *scheme);
+    void unregisterProcedure(NSScheme *scheme);
 
-    bool isBuiltin (const QString& name);
-    bool isUserDefined (const QString& name);
+    bool isBuiltin(const QString& name);
+    bool isUserDefined(const QString& name);
 
-    NSScheme *getFunctionSchemeForName (const QString& name);
-    NSScheme *getProcedureSchemeForName (const QString& name);
+    NSScheme *getFunctionSchemeForName(const QString& name);
+    NSScheme *getProcedureSchemeForName(const QString& name);
 
 signals:
-    void newCompoundStatement (const QString &name);
-    void compoundStatementDeleted (const QString &name);
+    void newCompoundStatement(const QString &name);
+    void compoundStatementDeleted(const QString &name);
 private:
     /* mapa nazw funkcji do schematów */
     QMap<QString, NSScheme*> userDefinedFunctions;
@@ -49,7 +50,8 @@ extern FunctionMap functionMap;
 
 class ProgramVariables;
 
-enum typ_skladnika {
+enum typ_skladnika
+{
     INSTR_SEKWENCJA, INSTR_PODSTAWIENIE,
     INSTR_SELEKCJA, INSTR_PETLA, INSTR_PUSTA,
     ATOM_LICZBA, ATOM_IDENT, ATOM_LOG,
@@ -58,7 +60,8 @@ enum typ_skladnika {
     FUNC_CALL, ATOM_NAPIS, LISTA_LWYR
 };
 
-struct drzewo_skladn {                                                          
+struct drzewo_skladn
+{
     enum typ_skladnika typ;
     struct ident_val_t* zmienna;
     BaseValue val;
@@ -95,12 +98,13 @@ struct drzewo_skladn {
 
     ~drzewo_skladn()
     {
-        switch (typ) {
+        switch (typ)
+        {
         case OPER_NOT:
         case OPER_REL:
         case OPER_LOG:
         case OPER_ARYTM:
-            free (oper);
+            free(oper);
             break;
         default:
             ;
@@ -110,17 +114,17 @@ struct drzewo_skladn {
     bool typeCheck(ProgramVariables *vars, QString &failed, TypeConstructorMap identTypes = TypeConstructorMap());
 
     /* Liczba wymiarów, dla skalarnej 0, dla tablicy jednowymiarowej 1 itd. */
-    int dimensionCount ();
+    int dimensionCount();
 
     /* zwraca napisową reprezentację tego typu */
-    QString typeToString (ProgramVariables *vars = 0);
+    QString typeToString(ProgramVariables *vars = 0);
 };     
 
 #define YYSTYPE drzewo_skladn*
 
 extern struct drzewo_skladn *program;
 
-void wypisz_ds (struct drzewo_skladn*);
+void wypisz_ds(struct drzewo_skladn*);
 
 /**
  * instruction - instrukcja zawierajaca wyrazenie
@@ -128,18 +132,13 @@ void wypisz_ds (struct drzewo_skladn*);
  * vars - zmienna programu
  * dims - wymiary tablicy
  */
-BaseValue execute_statement (Instruction *instruction,
-                             struct drzewo_skladn* statement,
-                             ProgramVariables *vars/*IdentsMap &idents*/,
-                             QList<unsigned int> dims=QList<unsigned int>());
+BaseValue execute_statement(Instruction *instruction,
+                            struct drzewo_skladn* statement,
+                            ProgramVariables *vars,
+                            QList<unsigned int> dims=QList<unsigned int>());
 
 extern QString syntaxErrorText;
 extern bool typeCheckFailed;
-
-#ifdef Q_WS_WIN
-//extern YYSTYPE implval;
-#endif
-
 extern unsigned int textlen;
 
 #endif

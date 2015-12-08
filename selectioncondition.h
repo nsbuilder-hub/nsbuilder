@@ -22,24 +22,25 @@
 
 class Selection;
 
-class SelectionCondition : public QWidget {
+class SelectionCondition : public QWidget
+{
     Q_OBJECT
 
 public:
     SelectionCondition(Selection *parent);
 
-    void setText (const QString &s);
-    void setComment (const QString &s);
+    void setText(const QString &s);
+    void setComment(const QString &s);
 
-    virtual QSize minimumSizeHint () const;
+    virtual QSize minimumSizeHint() const;
 
 protected:
-    void paintEvent (QPaintEvent *e);
-    void resizeEvent (QResizeEvent *event);
-    void showEvent (QShowEvent *e);
+    void paintEvent(QPaintEvent *e);
+    void resizeEvent(QResizeEvent *event);
+    void showEvent(QShowEvent *e);
 
 private:
-    void do_paintLabel ();
+    void do_paintLabel();
 
     QSize boundRect;
     QLabel *label;

@@ -16,41 +16,42 @@ class NSScheme;
 class Instruction;
 class ProgramVariables;
 
-class ExecutionThread: public QThread {
+class ExecutionThread: public QThread
+{
     Q_OBJECT
 
 public:
     ExecutionThread(NSScheme *_scheme);
     ~ExecutionThread();
 
-    void run ();
+    void run();
 
-    void stopSchemeExecution ();
+    void stopSchemeExecution();
 
-    void executeNextStep ();
+    void executeNextStep();
 
     /**
      * @param i instrukcja nastepna do wykonania
      * @param c instrukcja wywolania procedury
      **/
-    void saveExecutionFrame (Instruction *i, Instruction *c, NSScheme *s);
-    bool loadExecutionFrame (Instruction *&caller, Instruction *&next);
+    void saveExecutionFrame(Instruction *i, Instruction *c, NSScheme *s);
+    bool loadExecutionFrame(Instruction *&caller, Instruction *&next);
 
-    bool isSingleStepping () const;
-    void setSingleStepping (bool v);
+    bool isSingleStepping() const;
+    void setSingleStepping(bool v);
 
-    int getIntegerInputValue (const QString& caption, const QString& message);
-    double getDoubleInputValue (const QString& caption, const QString& message);
-    void showMessage (const QString& caption, const QString& message);
+    int getIntegerInputValue(const QString& caption, const QString& message);
+    double getDoubleInputValue(const QString& caption, const QString& message);
+    void showMessage(const QString& caption, const QString& message);
 
     friend class NSScheme;
 
 signals:
     void getInput(ExecutionThread *executor, const QString& type, const QString& caption, const QString& message);
-    void showMessage (ExecutionThread *executor, const QString& caption, const QString& message);
+    void showMessage(ExecutionThread *executor, const QString& caption, const QString& message);
 
 protected slots:
-    void on_scheme_closing ();
+    void on_scheme_closing();
 
 protected:
     QVariant inputValue;
@@ -63,9 +64,10 @@ private:
 
     QSemaphore semaphore;
 
-    void waitForNextStep ();
+    void waitForNextStep();
 
-    struct Frame {
+    struct Frame
+    {
         Instruction *instr;
         Instruction *caller;
         QMap<QString, Value> valueMap;

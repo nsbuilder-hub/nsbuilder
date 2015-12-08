@@ -24,7 +24,8 @@
 #include "instruction.h"
 #include "sequence.h"
 
-class Iteration : public Instruction {
+class Iteration : public Instruction
+{
     Q_OBJECT
 public:
     enum Variant {WHILEDO, REPEATUNTIL};
@@ -33,48 +34,48 @@ public:
      */
     Iteration(NSScheme *scheme, Variant var=WHILEDO, QWidget *parent=0, Instruction *parentInstruction=0, bool visible=true);
 
-    Sequence* instructions ();
+    Sequence* instructions();
 
-    void setInstructions (Sequence* s);
+    void setInstructions(Sequence* s);
 
     /**
      *
      * @param newContents
      */
-    virtual void setContents (QString newContents);
+    virtual void setContents(QString newContents);
 
     /**
      *
      * @param newComment
      */
-    virtual void setComment (QString newComment);
+    virtual void setComment(QString newComment);
 
     /**
      *
      * @param newImage
      */
-    virtual void setPixmap (QPixmap newImage);
+    virtual void setPixmap(QPixmap newImage);
 
-    virtual void formatXMLNode (QDomDocument& document, QDomNode& parent);
-    virtual bool setAsXMLNode (QDomNode& node);
-    virtual void formatSVGNode (QDomDocument& document, QDomNode& parent);
+    virtual void formatXMLNode(QDomDocument& document, QDomNode& parent);
+    virtual bool setAsXMLNode(QDomNode& node);
+    virtual void formatSVGNode(QDomDocument& document, QDomNode& parent);
 
-    virtual Instruction * copyOf ();
+    virtual Instruction * copyOf();
 
-    virtual void setScheme (NSScheme *scheme);
+    virtual void setScheme(NSScheme *scheme);
 
-    virtual QSize minimumSizeHint () const;
+    virtual QSize minimumSizeHint() const;
 
     /**
      * Wykonuje instrukcję i zwraca następną instrukcję do wykonania.
      */
-    virtual Instruction* execute (ExecutionThread *executor, bool *wait);
+    virtual Instruction* execute(ExecutionThread *executor, bool *wait);
 
-    virtual bool validateContents ();
-    virtual void recursiveValidateContents ();
+    virtual bool validateContents();
+    virtual void recursiveValidateContents();
 protected:
-    virtual void paintEvent (QPaintEvent *e);
-    virtual void showEvent (QShowEvent *e);
+    virtual void paintEvent(QPaintEvent *e);
+    virtual void showEvent(QShowEvent *e);
 private:
     /**
      *
