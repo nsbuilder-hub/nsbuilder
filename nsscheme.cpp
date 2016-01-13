@@ -989,9 +989,11 @@ void NSScheme::getInput(ExecutionThread *executor, const QString& type, const QS
 
 void NSScheme::showMessage (ExecutionThread *executor, const QString& caption, const QString& message)
 {
-Q_UNUSED(executor);
-	QMessageBox::information (this, caption, message);
-//	executor->ioSemaphore.release ();
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::information(this, caption, message, QMessageBox::Cancel|QMessageBox::Ok);
+    if (reply != QMessageBox::Ok) {
+        executor->stopSchemeExecution();
+    }
 }
 
 void NSScheme::on_executionThread_finished ()
