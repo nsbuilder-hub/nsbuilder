@@ -30,7 +30,7 @@ class NSSchemeWizard;
 class SettingsDialog;
 class ExecutionThread;
 class VariableEditor;
-class NaveValueDialog;
+class NameValueDialog;
 
 class MainWindow : public QMainWindow
 {
@@ -39,10 +39,13 @@ class MainWindow : public QMainWindow
 public:
     MainWindow();
     ~MainWindow();
+
     Instruction* clipboardInstruction();
     void setClipboardInstruction(Instruction *i);
+
     QString lastUsedDir() const;
     void setLastUsedDir(const QString& d);
+
     SettingsDialog* getSettingsDialog() const;
 
     NSScheme *findSchemeForName(const QString &name);
@@ -166,7 +169,7 @@ private:
 
     void setExecutionActions(bool running);
 
-    NaveValueDialog *m_nameValueDialog;
+    NameValueDialog *m_nameValueDialog;
 };
 
 extern MainWindow *mainWin;

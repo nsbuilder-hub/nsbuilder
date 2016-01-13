@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>NaveValueDialog</class>
- <widget class="QDialog" name="NaveValueDialog">
+ <class>NameValueDialog</class>
+ <widget class="QDialog" name="NameValueDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -114,7 +114,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>NaveValueDialog</receiver>
+   <receiver>NameValueDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -130,7 +130,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>NaveValueDialog</receiver>
+   <receiver>NameValueDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

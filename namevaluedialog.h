@@ -1,5 +1,5 @@
-#ifndef NAVEVALUEDIALOG_H
-#define NAVEVALUEDIALOG_H
+#ifndef NAMEVALUEDIALOG_H
+#define NAMEVALUEDIALOG_H
 
 #include <QDialog>
 #include <QMap>
@@ -7,16 +7,16 @@
 
 namespace Ui
 {
-class NaveValueDialog;
+class NameValueDialog;
 }
 
-class NaveValueDialog : public QDialog
+class NameValueDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit NaveValueDialog(QWidget *parent = 0);
-    ~NaveValueDialog();
+    explicit NameValueDialog(QWidget *parent = 0);
+    ~NameValueDialog();
 
     QMap<QString, QString>& nameValueMap();
 
@@ -26,8 +26,8 @@ private slots:
     void on_delTB_clicked();
 
 private:
-    Ui::NaveValueDialog *ui;
+    Ui::NameValueDialog *ui;
     QMap<QString, QString> m_map;
 };
 
-#endif // NAVEVALUEDIALOG_H
+#endif // NAMEVALUEDIALOG_H

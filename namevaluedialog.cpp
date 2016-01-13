@@ -1,27 +1,27 @@
-#include "navevaluedialog.h"
-#include "ui_navevaluedialog.h"
+#include "namevaluedialog.h"
+#include "ui_namevaluedialog.h"
 
 #include <QItemSelectionModel>
 
-NaveValueDialog::NaveValueDialog(QWidget *parent) :
+NameValueDialog::NameValueDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::NaveValueDialog)
+    ui(new Ui::NameValueDialog)
 {
     ui->setupUi(this);
     connect(this, SIGNAL(accepted()), this, SLOT(on_accept()));
 }
 
-NaveValueDialog::~NaveValueDialog()
+NameValueDialog::~NameValueDialog()
 {
     delete ui;
 }
 
-void NaveValueDialog::on_addTB_clicked()
+void NameValueDialog::on_addTB_clicked()
 {
     ui->tableWidget->setRowCount(ui->tableWidget->rowCount() + 1);
 }
 
-void NaveValueDialog::on_delTB_clicked()
+void NameValueDialog::on_delTB_clicked()
 {
     QItemSelectionModel * selection = ui->tableWidget->selectionModel();
     QModelIndexList indexes = selection->selectedIndexes();
@@ -31,12 +31,12 @@ void NaveValueDialog::on_delTB_clicked()
     }
 }
 
-QMap<QString, QString>& NaveValueDialog::nameValueMap()
+QMap<QString, QString>& NameValueDialog::nameValueMap()
 {
     return m_map;
 }
 
-void NaveValueDialog::on_accept()
+void NameValueDialog::on_accept()
 {
     m_map.clear();
     for (int i = 0; i < ui->tableWidget->rowCount(); i++) {

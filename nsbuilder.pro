@@ -64,7 +64,7 @@ HEADERS       = mainwindow.h \
 		imp_idents.h \
                 bisonproxy.h \
     commands.h \
-    navevaluedialog.h
+    namevaluedialog.h
 
 SOURCES       = main.cpp \
                 mainwindow.cpp \
@@ -90,7 +90,7 @@ SOURCES       = main.cpp \
 		bisonproxy.cpp \
     returninstruction.cpp \
     commands.cpp \
-    navevaluedialog.cpp
+    namevaluedialog.cpp
 
 FORMS         = instructioneditor.ui \
                 instructionwizard.ui \
@@ -98,7 +98,7 @@ FORMS         = instructioneditor.ui \
 		nsschemewizard.ui \
 		variableeditor.ui \
 		settingsdialog.ui \
-    navevaluedialog.ui
+    namevaluedialog.ui
 
 TRANSLATIONS  = nsbuilder_pl.ts
 
