@@ -250,6 +250,9 @@ bool ProgramVariables::setAsXMLNode (QDomNode& node)
 					if (st.nodeName () == "long") {
 						varStruct = new ident_val_t(0, 0L);
                                                 varStruct->setTypeConstructor(Variable);
+                    } else if (st.nodeName() == "double") {
+                        varStruct = new ident_val_t(0, 0.0);
+                        varStruct->setTypeConstructor(Variable);
 					} else if (st.nodeName () == "array") {
 						QDomAttr size = st.toElement ().attributeNode ("size");
 						long l = size.value ().toLong ();
@@ -267,8 +270,11 @@ bool ProgramVariables::setAsXMLNode (QDomNode& node)
 
 					if (st.nodeType () == QDomNode::TextNode) {
 						if (varStruct && (varStruct->t.tc == Variable)) {
-							varStruct->v.bval.val = st.toText ().data ().toLong ();
-							varStruct->v.bval.d = Long;
+                            if (varStruct->v.bval.d == Double) {
+                                varStruct->v.bval.fval = st.toText().data().toDouble();
+                            } else {
+                                varStruct->v.bval.val = st.toText().data().toLong();
+                            }
 						}
 					} else if (st.nodeName () == "element") {
 						QDomNodeList elemList = vn.childNodes ();
@@ -316,11 +322,12 @@ void ProgramVariables::formatXMLNode (QDomDocument& document, QDomNode& parent)
 			QDomElement type = document.createElement ("type");
 			QDomElement value = document.createElement ("value");
 			if (id->t.tc == Variable) {
-				QDomElement t = document.createElement ("long");
-				type.appendChild (t);
+                bool isLong = id->v.bval.d == Long;
+                QDomElement t = document.createElement(isLong ? "long" : "double");
+                type.appendChild(t);
 				
-				QDomText v_value = document.createTextNode (QString::number ((id->v.bval.d == Long) ? id->v.bval.val : id->v.bval.fval));
-				value.appendChild (v_value);
+                QDomText v_value = document.createTextNode(QString::number(isLong ? id->v.bval.val : id->v.bval.fval));
+                value.appendChild(v_value);
 			} else if (id->t.tc == Array) {
 				QDomElement a = document.createElement ("array");
 				QDomElement t = document.createElement ("long");
