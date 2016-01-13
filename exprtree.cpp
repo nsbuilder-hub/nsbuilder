@@ -475,8 +475,12 @@ qDebug ("arytm: %lf%c%lf\n", v1, statement->oper[0], v2);
 					}
 					break;
 					case 'm': /* mod */ {
-						retval.d = Long;
-						retval.val = (int)v1 % (int)v2;
+                        if ((int)v2 == 0) {
+                            throw OL;
+                        } else {
+                            retval.d = Long;
+                            retval.val = (int)v1 % (int)v2;
+                        }
 					} 
 					break;
 					case 'd': /* idiv */ {
