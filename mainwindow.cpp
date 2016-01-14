@@ -110,7 +110,7 @@ void MainWindow::dropEvent(QDropEvent *event)
      if (event->mimeData()->hasUrls()) {
          foreach (QUrl url, event->mimeData()->urls()) {
              qDebug() << url;
-             do_open (url.path ());
+             do_open(url.toLocalFile());
          }
      }
 }
