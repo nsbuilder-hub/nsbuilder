@@ -398,7 +398,11 @@ void NSScheme::removeInstruction()
     QLayout *l = parentSequence->layout();
 
     if (l) {
-        commands.doAction(Action::newRemoveInstruction(parentSequence, p_activeInstruction, parentSequence->indexOf(p_activeInstruction)));
+        int index = parentSequence->indexOf(p_activeInstruction);
+        if (index < 0) {
+            return;
+        }
+        commands.doAction(Action::newRemoveInstruction(parentSequence, p_activeInstruction, index));
         setModified(true);
     }
 }
