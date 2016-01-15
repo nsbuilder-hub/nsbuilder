@@ -19,7 +19,8 @@
 #include <QWidget>
 #include <QLabel>
 
-class IterationWidget : public QWidget {
+class IterationWidget : public QWidget
+{
 	public:
 	IterationWidget(QWidget *parent=0, const char * name=0);
 	QLabel *contentsLabel;

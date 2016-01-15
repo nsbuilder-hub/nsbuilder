@@ -24,91 +24,87 @@
 #include "selectionwidget.h"
 #include "selectioncondition.h"
 
-class Selection : public Instruction {
-	Q_OBJECT
+class Selection : public Instruction
+{
+    Q_OBJECT
 public:
-	virtual ~Selection();
-	/**
-	 * 
-	 */
-	Selection(NSScheme *scheme, QWidget *parent=0, Instruction *parentInstruction=0, bool visible=true);
+    virtual ~Selection();
+    /**
+     *
+     */
+    Selection(NSScheme *scheme, QWidget *parent=0, Instruction *parentInstruction=0, bool visible=true);
 
-	/**
-	 * 
-	 */
-	Sequence* instructionsOnFalse ();
-		
-	/**
-	 * 
-	 */
-	void setInstructionsOnFalse (Sequence* value);
-	
-	/**
-	 * 
-	 */
-	Sequence* instructionsOnTrue ();
-		
-	/**
-	 * 
-	 */
-	void setInstructionsOnTrue (Sequence* value);
-	
-	/**
-	 * 
-	 * @param newContents 
-	 */
-	virtual void setContents (QString newContents);
+    /**
+     *
+     */
+    Sequence* instructionsOnFalse();
 
-	/**
-	 * 
-	 * @param newComment 
-	 */
-	virtual void setComment (QString newComment);
+    /**
+     *
+     */
+    void setInstructionsOnFalse(Sequence* value);
 
-	/**
-	 * 
-	 * @param newImage 
-	 */
-	virtual void setPixmap (QPixmap newImage);
+    /**
+     *
+     */
+    Sequence* instructionsOnTrue();
 
-	virtual void formatXMLNode (QDomDocument& document, QDomNode& parent);
-	virtual bool setAsXMLNode (QDomNode& node);
-	virtual void formatSVGNode (QDomDocument& document, QDomNode& parent);
-	
-	virtual Instruction * copyOf ();
+    /**
+     *
+     */
+    void setInstructionsOnTrue(Sequence* value);
 
-	virtual void setScheme (NSScheme *scheme);
-	
-	virtual QSize minimumSizeHint () const;
+    /**
+     *
+     * @param newContents
+     */
+    virtual void setContents(QString newContents);
 
-	/**
-	 * Wykonuje instrukcję i zwraca następną instrukcję do wykonania.
-	 */
-	virtual Instruction* execute (ExecutionThread *executor, bool *wait);
+    /**
+     *
+     * @param newComment
+     */
+    virtual void setComment(QString newComment);
 
-	virtual bool validateContents ();
-        virtual void recursiveValidateContents ();
+    /**
+     *
+     * @param newImage
+     */
+    virtual void setPixmap(QPixmap newImage);
 
-	friend class SelectionCondition;
+    virtual void formatXMLNode(QDomDocument& document, QDomNode& parent);
+    virtual bool setAsXMLNode(QDomNode& node);
+    virtual void formatSVGNode(QDomDocument& document, QDomNode& parent);
+
+    virtual Instruction * copyOf();
+
+    virtual void setScheme(NSScheme *scheme);
+
+    virtual QSize minimumSizeHint() const;
+
+    /**
+     * Wykonuje instrukcję i zwraca następną instrukcję do wykonania.
+     */
+    virtual Instruction* execute(ExecutionThread *executor, bool *wait);
+
+    virtual bool validateContents();
+    virtual void recursiveValidateContents();
+
+    friend class SelectionCondition;
 protected:
-	virtual void showEvent (QShowEvent *e);
+    virtual void showEvent(QShowEvent *e);
 
-	double instructionsSplit ();
+    double instructionsSplit();
 
 private:
-	/**
-	 * 
-	 */
-	//QLabel *label;
-	SelectionCondition *label;
-	QWidget *onTrueWidget;
-	QWidget *onFalseWidget;
-	Sequence *m_instructionsOnFalse;
-	Sequence *m_instructionsOnTrue;
-	QGridLayout *hLayout;
-	//QHBoxLayout *hLayout;
-	QSplitter *splitter;
-	QWidget *hWidget;
+    SelectionCondition *label;
+    QWidget *onTrueWidget;
+    QWidget *onFalseWidget;
+    Sequence *m_instructionsOnFalse;
+    Sequence *m_instructionsOnTrue;
+    QGridLayout *hLayout;
+    QSplitter *splitter;
+    QWidget *hWidget;
 };
-#endif //SELECTION_H
 
+#endif //SELECTION_H

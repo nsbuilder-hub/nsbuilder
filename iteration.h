@@ -24,66 +24,67 @@
 #include "instruction.h"
 #include "sequence.h"
 
-class Iteration : public Instruction {
-	Q_OBJECT
+class Iteration : public Instruction
+{
+    Q_OBJECT
 public:
-        enum Variant {WHILEDO, REPEATUNTIL};
-	/**
-	 * 
-	 */
-        Iteration(NSScheme *scheme, Variant var=WHILEDO, QWidget *parent=0, Instruction *parentInstruction=0, bool visible=true);
-	
-	Sequence* instructions ();
-	
-	void setInstructions (Sequence* s);
-	
-	/**
-	 * 
-	 * @param newContents 
-	 */
-	virtual void setContents (QString newContents);
+    enum Variant {WHILEDO, REPEATUNTIL};
+    /**
+     *
+     */
+    Iteration(NSScheme *scheme, Variant var=WHILEDO, QWidget *parent=0, Instruction *parentInstruction=0, bool visible=true);
 
-	/**
-	 * 
-	 * @param newComment 
-	 */
-	virtual void setComment (QString newComment);
+    Sequence* instructions();
 
-	/**
-	 * 
-	 * @param newImage 
-	 */
-	virtual void setPixmap (QPixmap newImage);
+    void setInstructions(Sequence* s);
 
-	virtual void formatXMLNode (QDomDocument& document, QDomNode& parent);
-	virtual bool setAsXMLNode (QDomNode& node);
-	virtual void formatSVGNode (QDomDocument& document, QDomNode& parent);
+    /**
+     *
+     * @param newContents
+     */
+    virtual void setContents(QString newContents);
 
-	virtual Instruction * copyOf ();
+    /**
+     *
+     * @param newComment
+     */
+    virtual void setComment(QString newComment);
 
-	virtual void setScheme (NSScheme *scheme);
-	
-	virtual QSize minimumSizeHint () const;
+    /**
+     *
+     * @param newImage
+     */
+    virtual void setPixmap(QPixmap newImage);
 
-	/**
-	 * Wykonuje instrukcję i zwraca następną instrukcję do wykonania.
-	 */
-	virtual Instruction* execute (ExecutionThread *executor, bool *wait);
+    virtual void formatXMLNode(QDomDocument& document, QDomNode& parent);
+    virtual bool setAsXMLNode(QDomNode& node);
+    virtual void formatSVGNode(QDomDocument& document, QDomNode& parent);
 
-	virtual bool validateContents ();
-        virtual void recursiveValidateContents ();
+    virtual Instruction * copyOf();
+
+    virtual void setScheme(NSScheme *scheme);
+
+    virtual QSize minimumSizeHint() const;
+
+    /**
+     * Wykonuje instrukcję i zwraca następną instrukcję do wykonania.
+     */
+    virtual Instruction* execute(ExecutionThread *executor, bool *wait);
+
+    virtual bool validateContents();
+    virtual void recursiveValidateContents();
 protected:
-	virtual void paintEvent (QPaintEvent *e);
-	virtual void showEvent (QShowEvent *e);
+    virtual void paintEvent(QPaintEvent *e);
+    virtual void showEvent(QShowEvent *e);
 private:
-	/**
-	 * 
-	 */
-	Sequence *m_instructions;
-	QLabel *label;
-	QHBoxLayout *hLayout;
-	QWidget *iWidget;
-        Variant m_variant;
+    /**
+     *
+     */
+    Sequence *m_instructions;
+    QLabel *label;
+    QHBoxLayout *hLayout;
+    QWidget *iWidget;
+    Variant m_variant;
 };
 
 #endif //ITERATION_H

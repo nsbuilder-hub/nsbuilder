@@ -8,30 +8,31 @@ class QWidget;
 
 #include "ui_variableeditor.h"
 
-class VariableEditor: public QDialog {
-	Q_OBJECT
+class VariableEditor: public QDialog
+{
+    Q_OBJECT
 
-	public:
-	VariableEditor(QWidget *parent);
+public:
+    VariableEditor(QWidget *parent);
 
-	void editSchemeVariables (NSScheme *scheme);
+    void editSchemeVariables(NSScheme *scheme);
 
-	public slots:
-	void on_tableWidget_itemChanged (QTableWidgetItem * item);
-	
-	private slots:
-	void on_valueChanged (const QString &varName);
+public slots:
+    void on_tableWidget_itemChanged(QTableWidgetItem * item);
 
-	private:
-	Ui::VariableEditorForm ui;
+private slots:
+    void on_valueChanged(const QString &varName);
 
-	NSScheme *p_scheme;
-	void readSchemeVariables ();
+private:
+    Ui::VariableEditorForm ui;
 
-        /* czy zmienna zostala zmieniona przez uruchomiony schemat (true)
-         * czy przez usera recznie (false)
-         * ustawia to slot on_valueChanged () */
-        bool updateFromScheme;
+    NSScheme *p_scheme;
+    void readSchemeVariables();
+
+    /* czy zmienna zostala zmieniona przez uruchomiony schemat(true)
+         * czy przez usera recznie(false)
+         * ustawia to slot on_valueChanged() */
+    bool updateFromScheme;
 };
 
 #endif

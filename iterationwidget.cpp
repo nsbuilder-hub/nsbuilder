@@ -6,16 +6,16 @@ IterationWidget::IterationWidget(QWidget *parent, const char * name)
 {
 	QVBoxLayout *vLayout = new QVBoxLayout();
 	QHBoxLayout *hLayout = new QHBoxLayout();
-	QWidget *hWidget = new QWidget ();
-	hLayout->setMargin (30);
+	QWidget *hWidget = new QWidget();
+	hLayout->setMargin(30);
 
 	contentsLabel = new QLabel(this);
-	instructionsWidget = new QWidget (hWidget);
+	instructionsWidget = new QWidget(hWidget);
 
-	vLayout->addWidget (contentsLabel);
-	hLayout->addWidget (instructionsWidget);
+	vLayout->addWidget(contentsLabel);
+	hLayout->addWidget(instructionsWidget);
 
-	hWidget->setLayout (hLayout);
-	setLayout (vLayout);
+	hWidget->setLayout(hLayout);
+	setLayout(vLayout);
 }
 

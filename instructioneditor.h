@@ -18,35 +18,36 @@
 
 #include "ui_instructioneditor.h"
 
-class InstructionEditorForm : public QWidget {
-	Q_OBJECT
+class InstructionEditorForm : public QWidget
+{
+    Q_OBJECT
 
-	public:
-	InstructionEditorForm(QWidget *parent);
+public:
+    InstructionEditorForm(QWidget *parent);
 
-	QPixmap pixmap ();
-	void setPixmap (const QPixmap &p);
-	QString instructionText ();
-	void setInstructionText (const QString &s);
-	QString instructionComment ();
-	void setInstructionComment (const QString &s);
+    QPixmap pixmap();
+    void setPixmap(const QPixmap &p);
+    QString instructionText();
+    void setInstructionText(const QString &s);
+    QString instructionComment();
+    void setInstructionComment(const QString &s);
 
-	void reset ();
+    void reset();
 
-	public slots:
-	void on_instructionEdit_textChanged (const QString & text);
-	void on_commentEdit_textChanged (const QString & text);
+public slots:
+    void on_instructionEdit_textChanged(const QString & text);
+    void on_commentEdit_textChanged(const QString & text);
 
-	signals:
-	void instructionTextChanged (const QString &text);
-	void instructionCommentChanged (const QString &text);
-	void instructionReady (bool isReady);
+signals:
+    void instructionTextChanged(const QString &text);
+    void instructionCommentChanged(const QString &text);
+    void instructionReady(bool isReady);
 
-	private:
-	Ui::InstructionEditorForm ui;
-	QString m_instructionText;
-	QString m_instructionComment;
-	QPixmap m_pixmap;
+private:
+    Ui::InstructionEditorForm ui;
+    QString m_instructionText;
+    QString m_instructionComment;
+    QPixmap m_pixmap;
 };
 
 extern InstructionEditorForm *editorForm;
