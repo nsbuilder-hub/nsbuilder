@@ -12,7 +12,7 @@
 #include "executionthread.h"
 #include "variableeditor.h"
 #include "exprtree.h"
-#include "navevaluedialog.h"
+#include "namevaluedialog.h"
 
 MainWindow *mainWin;
 
@@ -85,7 +85,7 @@ MainWindow::MainWindow():
 
         setAcceptDrops (true);
 
-        m_nameValueDialog = new NaveValueDialog(this);
+        m_nameValueDialog = new NameValueDialog(this);
 }
 
 QMap<QString, QString>&  MainWindow::getNameValueMap ()
