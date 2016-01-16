@@ -439,7 +439,7 @@ BaseValue execute_statement(Instruction *instruction, struct drzewo_skladn* stat
                 break;
             case 'm': /* mod */ {
                 if ((int)v2 == 0) {
-                    throw OL;
+                    throw 0L;
                 } else {
                     retval.d = Long;
                     retval.val = (int)v1 % (int)v2;
