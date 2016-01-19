@@ -312,8 +312,16 @@ void NSScheme::appendInstruction()
     Instruction *i = createInstructionFromWizard();
 
     if (i) {
-        commands.doAction(Action::newAddInstruction(parentSequence, i, parentSequence->count()));
-        setModified(true);
+        QLayout *l = parentSequence->layout();
+
+        if (l) {
+            int index = l->indexOf(p_activeInstruction);
+            index = index < 0 ? 0 : index + 1;
+            commands.doAction(Action::newAddInstruction(parentSequence, i, index));
+            setModified(true);
+        } else {
+            qDebug("no instruction created");
+        }
     }
 }
 
@@ -390,7 +398,11 @@ void NSScheme::removeInstruction()
     QLayout *l = parentSequence->layout();
 
     if (l) {
-        commands.doAction(Action::newRemoveInstruction(parentSequence, p_activeInstruction, parentSequence->indexOf(p_activeInstruction)));
+        int index = parentSequence->indexOf(p_activeInstruction);
+        if (index < 0) {
+            return;
+        }
+        commands.doAction(Action::newRemoveInstruction(parentSequence, p_activeInstruction, index));
         setModified(true);
     }
 }
@@ -905,11 +917,19 @@ void NSScheme::paste()
             Sequence *s = findParentSequence();
 
             if (s) {
-                i->setScheme(this);
-                i->recursiveValidateContents();
-                commands.doAction(Action::newAddInstruction(s, i, s->count()));
-                setModified(true);
-                qDebug("instruction appended");
+                QLayout *l = s->layout();
+
+                if (l) {
+                    i->setScheme(this);
+                    i->recursiveValidateContents();
+
+                    int index = l->indexOf(p_activeInstruction);
+                    index = index < 0 ? 0 : index + 1;
+                    commands.doAction(Action::newAddInstruction(s, i, index));
+                    setModified(true);
+                } else {
+                    qDebug("no instruction created");
+                }
             }
         } else {
             qDebug("we have a sequence");
@@ -1005,7 +1025,7 @@ void NSScheme::assignArraySizes()
                 long size = 1;
                 while (t && t->tc == Array) {
                     long l = 0;
-                    while (0 >=(l = QInputDialog::getInteger(this,
+                    while (0 >= (l = QInputDialog::getInteger(this,
                                                              tr("Array dimension"),
                                                              tr("Input number of elements in %2. dimension for array %1").arg(id->ident).arg(d), 10)))
                         ;
