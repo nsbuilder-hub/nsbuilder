@@ -1,1 +1,16 @@
 *.user
+/.moc
+/.obj
+/.ui
+/Makefile
+/Makefile.Debug
+/Makefile.Release
+/debug
+/release
+/scripts/paths.bat
+/imp_lex.cpp
+/imp_yacc.cpp
+/imp_yacc.h
+/object_script.nsbuilder.Debug
+/object_script.nsbuilder.Release
+SVN_VERSION_FILE
