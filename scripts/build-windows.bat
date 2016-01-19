@@ -29,12 +29,6 @@ copy %MINGWPATH%\mingwm10.dll release\
 copy %MINGWPATH%\libgcc_s_dw2-1.dll release\
 del release\qrc_nsbuilder.cpp
 
-SET /P VERSION=<SVN_VERSION_FILE
-ren release nsbuilder1-%VERSION%-windows
-7z a release/nsbuilder1-%VERSION%-windows.zip nsbuilder1-%VERSION%-windows/*
-del /s /q nsbuilder1-%VERSION%-windows
-rmdir nsbuilder1-%VERSION%-windows
-
 GOTO :EOF
 
 :FIXBISON
