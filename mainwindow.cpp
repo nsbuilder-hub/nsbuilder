@@ -625,8 +625,8 @@ void MainWindow::createMenus()
     schemeMenu->addAction(editVarsAct);
     schemeMenu->addAction(exportAct);
     schemeMenu->addAction(exportSVGAct);
-    schemeMenu->addAction(putSVGAct);
-    schemeMenu->addAction(putNSSAct);
+    //schemeMenu->addAction(putSVGAct);
+    //schemeMenu->addAction(putNSSAct);
 
     instrMenu = menuBar()->addMenu(tr("&Instructions"));
     instrMenu->addAction(appendInstrAct);
@@ -669,8 +669,8 @@ void MainWindow::createToolBars()
     schemeToolBar->addAction(editVarsAct);
     schemeToolBar->addAction(exportAct);
     schemeToolBar->addAction(exportSVGAct);
-    schemeToolBar->addAction(putSVGAct);
-    schemeToolBar->addAction(putNSSAct);
+    //schemeToolBar->addAction(putSVGAct);
+    //schemeToolBar->addAction(putNSSAct);
 
     instrToolBar = addToolBar(tr("Instructions"));
     instrToolBar->addAction(appendInstrAct);
