@@ -21,7 +21,7 @@ Compression=lzma
 SolidCompression=yes
 ChangesAssociations=yes
 AppPublisher=Aleksander Wojdyga
-AppSupportURL=http://cs.pollub.pl/~awojdyga/nsbuilder/
+AppSupportURL=https://github.com/nsbuilder-hub/nsbuilder
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -45,13 +45,13 @@ Source: "QtCore4.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "QtGui4.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "QtNetwork4.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "QtXml4.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "index.html"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "index.html"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
-Name: "{group}\Info"; Filename: "{app}\index.html"
+;Name: "{group}\Info"; Filename: "{app}\index.html"
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
