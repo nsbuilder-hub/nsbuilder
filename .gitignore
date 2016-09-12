@@ -15,3 +15,5 @@
 /object_script.nsbuilder.Release
 SVN_VERSION_FILE
 /pack
+/nsbuilder
+/qrc_nsbuilder.cpp

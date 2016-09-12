@@ -6,8 +6,6 @@ IF /I "%1"=="DEBUG" SET FLAVOR=debug
 rem Set PATH with Qt, MinGW and additional tools we need
 set PATH=%PATH%;%QTPATH%;%MINGWPATH%;%NSBUILDENV%\bin
 
-rem Checkout to master
-rem git checkout master
 call scripts\set-version.cmd
 qmake "CONFIG+=win32"
 make %FLAVOR%
