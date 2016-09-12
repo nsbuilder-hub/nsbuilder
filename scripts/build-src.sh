@@ -1,9 +1,8 @@
 #!/bin/bash
 
-svn checkout http://nsbuilder.googlecode.com/svn/trunk/ nsbuilder
+git clone https://github.com/nsbuilder-hub/nsbuilder.git
 cd nsbuilder
-./scripts/ustaw-wersje-svn.sh
+./scripts/set-version.sh
 cd ..
-zip -r nsbuilder1-`cat nsbuilder/SVN_VERSION_FILE`-src.zip nsbuilder
+zip -r ../pack/nsbuilder1-`cat nsbuilder/SVN_VERSION_FILE`-src.zip nsbuilder
 rm -rf nsbuilder
-
