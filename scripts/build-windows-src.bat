@@ -1,5 +1,5 @@
 @echo off
-git clone https://github.com/nsbuilder-hub/nsbuilder.git
+rem git clone https://github.com/nsbuilder-hub/nsbuilder.git
 cd nsbuilder
 call scripts\set-version.bat
 cd ..
