@@ -8,6 +8,8 @@ cd release
 "C:\Program Files (x86)\Inno Setup 5\ISCC.exe" /dMyAppVersion=%VERSION% "nsbuilder2.iss"
 cd ..
 copy release\Output\setup.exe pack\nsbuilder1-%VERSION%-setup.exe
+del /s /q release\Output
+rmdir release\Output
 
 goto :EOF
 
