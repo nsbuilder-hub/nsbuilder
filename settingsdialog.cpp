@@ -143,10 +143,7 @@ void SettingsDialog::accept()
     setInvalidColor(tmpInvalidColor);
     setExecutionColor(tmpExecutionColor);
     setSchemeFont(tmpSchemeFont);
-    setExecutionSleep(tmpExecutionSleep = ui.executionDelaySB->value());
-    setPutPortNumber(ui.putPortNumberSB->value());
-    setPutHostName(ui.putHostNameLE->text());
-    setPutAppName(ui.putAppNameLE->text());
+    setExecutionSleep(tmpExecutionSleep = ui.executionDelaySB->value());    
 
     QDialog::accept();
 }
