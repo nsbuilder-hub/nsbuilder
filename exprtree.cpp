@@ -43,6 +43,8 @@ void initiate_builtin_functions()
     builtinFuncIdents << "sqrt";builtinFuncArgs << "number";        builtinFuncResults << "number";builtinFuncArgType << new Type(0, Variable);
 
     builtinFuncIdents << "abs"; builtinFuncArgs << "number";        builtinFuncResults << "number";builtinFuncArgType << new Type(0, Variable);
+    
+    builtinFuncIdents << "rand"; builtinFuncArgs << "number";        builtinFuncResults << "number";builtinFuncArgType << new Type(0, Variable);
 }
 
 QString drzewo_skladn::typeToString(ProgramVariables *vars)
@@ -590,6 +592,13 @@ BaseValue execute_statement(Instruction *instruction, struct drzewo_skladn* stat
                     retval.d = Double;
                     retval.fval = fabs(b.fval);
                 }
+            } else if ("rand" == statement->skladnik[0]->zmienna->ident) {                
+                BaseValue b = execute_statement(instruction, statement->skladnik[1], vars);
+                //qDebug(QString("rand b=%1").arg(b.toString()).toLocal8Bit());
+                int z = (b.d == Long)? b.val : trunc(b.fval);
+                retval.d = Long;
+                srand(time(NULL));
+                retval.val = rand() % z;
             } else if (functionMap.isUserDefined(statement->skladnik[0]->zmienna->ident)) {
                 NSScheme *scheme = functionMap.getFunctionSchemeForName(statement->skladnik[0]->zmienna->ident);
                 if (instruction && scheme) {
