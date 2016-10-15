@@ -97,6 +97,7 @@ int SettingsDialog::exec()
     ui.selectColorPB->setPalette(QPalette(tmpColor = selectionColor()));
     ui.invalidColorPB->setPalette(QPalette(tmpInvalidColor = invalidColor()));
     ui.executionColorPB->setPalette(QPalette(tmpExecutionColor = executionColor()));
+    ui.executionDelaySB->setValue(SettingsDialog::executionSleep());
 
     return QDialog::exec();
 }
@@ -153,7 +154,7 @@ void SettingsDialog::accept()
 
 int SettingsDialog::executionSleep()
 {
-    return appSettings->value("execution-sleep", 1000).toInt();
+    return appSettings->value("execution-sleep", 200).toInt();
 }
 
 void SettingsDialog::setExecutionSleep(int v)
