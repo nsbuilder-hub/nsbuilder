@@ -43,7 +43,7 @@ INDZ		\]
 
 COMMA		,
 
-FUNCIDENT	"sin"|"cos"|"tg"|"ctg"|"exp"|"ln"|"log"|"sqrt"|"abs"
+FUNCIDENT	"sin"|"cos"|"tg"|"ctg"|"exp"|"ln"|"log"|"sqrt"|"abs"|"rand"
 
 NAPIS		\'[^'"]+\'
 %%
@@ -73,7 +73,7 @@ qDebug ( "lex: IDIV\n");
 
 {NOTOPER}	{
 	struct drzewo_skladn *w;
-	/* tworzymy nowy li¶æ drzewa sk³adniowego */
+	/* tworzymy nowy liï¿½ï¿½ drzewa skï¿½adniowego */
 	//w = (struct drzewo_skladn*) malloc (sizeof (struct drzewo_skladn));
 	//w->typ = OPER_NOT;
 	w = new drzewo_skladn(OPER_NOT, 0L);
@@ -92,7 +92,7 @@ qDebug ( "lex: notoper\n");
 
 {BOPER}		{
 	struct drzewo_skladn *w;
-	/* tworzymy nowy li¶æ drzewa sk³adniowego */
+	/* tworzymy nowy liï¿½ï¿½ drzewa skï¿½adniowego */
 	//w = (struct drzewo_skladn*) malloc (sizeof (struct drzewo_skladn));
 	//w->typ = OPER_LOG;
 	w = new drzewo_skladn(OPER_LOG, 0L);
@@ -111,7 +111,7 @@ qDebug ( "lex: boper: %s\n", w->oper);
 
 "true"	{
 	struct drzewo_skladn *w;
-	/* tworzymy nowy li¶æ drzewa sk³adniowego */
+	/* tworzymy nowy liï¿½ï¿½ drzewa skï¿½adniowego */
 	//w = (struct drzewo_skladn*) malloc (sizeof (struct drzewo_skladn));
 	//w->typ = ATOM_LOG;
 	w = new drzewo_skladn(ATOM_LOG, 0L);
@@ -131,7 +131,7 @@ qDebug ( "lex: true\n");
 
 "false"	{
 	struct drzewo_skladn *w;
-	/* tworzymy nowy li¶æ drzewa sk³adniowego */
+	/* tworzymy nowy liï¿½ï¿½ drzewa skï¿½adniowego */
 	//w = (struct drzewo_skladn*) malloc (sizeof (struct drzewo_skladn));
 	//w->typ = ATOM_LOG;
 	w = new drzewo_skladn(ATOM_LOG, 0L);
@@ -278,7 +278,7 @@ qDebug ( "lex: roper: %s\n", w->oper);
 
 {LICZBA}	{
 	struct drzewo_skladn *w;
-	/* tworzymy nowy li¶æ drzewa sk³adniowego */
+	/* tworzymy nowy liï¿½ï¿½ drzewa skï¿½adniowego */
 	w = new drzewo_skladn(ATOM_LICZBA, 0.0);
 #ifdef DEBUG4
 qDebug ( "new pointer %p\n", w);
