@@ -9,6 +9,7 @@ set PATH=%PATH%;%QTPATH%;%MINGWPATH%;%NSBUILDENV%\bin
 call scripts\set-version.cmd
 qmake "CONFIG+=win32"
 make %FLAVOR%
+lrelease nsbuilder.pro
 
 rem Automatic makefile does not work somehow with bison generated files
 rem so we are changing names here ourselves and calling make again
@@ -46,3 +47,4 @@ echo 7-Zip CommandLine is also required in PATH
 echo.
 
 :EOF
+
