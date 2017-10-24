@@ -4,7 +4,7 @@ SET FLAVOR=release
 IF /I "%1"=="DEBUG" SET FLAVOR=debug
 
 rem Set PATH with Qt, MinGW and additional tools we need
-set PATH=%PATH%;%QTPATH%;%MINGWPATH%;%NSBUILDENV%\bin
+set PATH=%QTPATH%\bin;%MINGWPATH%;%NSBUILDENV%\bin;%PATH%
 
 call scripts\set-version.cmd
 qmake "CONFIG+=win32"
@@ -19,7 +19,7 @@ IF ERRORLEVEL 1 GOTO :FIXBISON
 IF /I "%FLAVOR%"=="DEBUG" GOTO :EOF
 
 copy nsbuilder_pl.qm release\
-copy %QTPATH%\QtCore4.dll release\
+copy %QTPATH%\bin\QtCore4.dll release\
 copy %QTPATH%\QtGui4.dll release\
 copy %QTPATH%\QtNetwork4.dll release\
 copy %QTPATH%\QtXml4.dll release\
@@ -33,6 +33,7 @@ GOTO :EOF
 echo Fixing BISON Qt error
 ren imp.tab.h imp_yacc.h
 ren imp.tab.c imp_yacc.cpp
+ren lex.imp.c imp_lex.cpp
 make
 
 GOTO :PACK
