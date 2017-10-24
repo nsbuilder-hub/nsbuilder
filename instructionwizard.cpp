@@ -23,6 +23,8 @@ InstructionWizardDialog::InstructionWizardDialog(MainWindow *parent)
 
     instructionEditor = new ::InstructionEditorForm(ui.contentsFrame);
     ui.contentsFrame->layout()->addWidget(instructionEditor);
+
+    ui.nextButton->setShortcut(QKeySequence(Qt::Key_PageDown));    
 }
 
 void InstructionWizardDialog::on_prevButton_clicked()
@@ -45,7 +47,7 @@ void InstructionWizardDialog::on_nextButton_clicked()
 
 void InstructionWizardDialog::on_instructionReady(bool isReady)
 {
-    ui.finishButton->setEnabled(isReady);
+    ui.finishButton->setEnabled(isReady);    
 }
 
 void InstructionWizardDialog::reset(NSScheme *s)

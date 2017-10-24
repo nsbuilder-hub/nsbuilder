@@ -188,13 +188,6 @@
    <item>
     <layout class="QHBoxLayout">
      <item>
-      <widget class="QPushButton" name="helpButton">
-       <property name="text">
-        <string>Help</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QPushButton" name="cancelPB">
        <property name="text">
         <string>Cancel</string>
@@ -256,6 +249,9 @@
        </property>
        <property name="text">
         <string>Finish</string>
+       </property>
+       <property name="default">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
