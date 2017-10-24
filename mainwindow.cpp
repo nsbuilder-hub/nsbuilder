@@ -541,7 +541,8 @@ void MainWindow::createActions()
     connect(aboutQtAct, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
 
     appendInstrAct = new QAction(QIcon(":/images/append.png"), tr("Append instruction"), this);
-    appendInstrAct->setStatusTip(tr("Appends instruction to the end of current instruction"));
+    appendInstrAct->setStatusTip(tr("Appends instruction after the current instruction"));
+    appendInstrAct->setShortcut(tr("Insert"));
     connect(appendInstrAct, SIGNAL(triggered()), this, SLOT(appendInstruction()));
 
     insertInstrAct = new QAction(QIcon(":/images/insert.png"), tr("Insert instruction"), this);
@@ -565,21 +566,13 @@ void MainWindow::createActions()
     editVarsAct->setStatusTip(tr("Edit variables' name and value"));
     connect(editVarsAct, SIGNAL(triggered()), this, SLOT(editVariables()));
 
-    exportAct = new QAction(QIcon(":/images/export.png"), tr("Export scheme"), this);
+    exportAct = new QAction(QIcon(":/images/export.png"), tr("Export scheme to PNG image"), this);
     exportAct->setStatusTip(tr("Export scheme to PNG image file"));
     connect(exportAct, SIGNAL(triggered()), this, SLOT(exportScheme()));
 
     exportSVGAct = new QAction(QIcon(":/images/exportsvg.png"), tr("Export scheme to SVG image"), this);
     exportSVGAct->setStatusTip(tr("Export scheme to SVG image file"));
     connect(exportSVGAct, SIGNAL(triggered()), this, SLOT(exportSchemeSVG()));
-
-    putSVGAct = new QAction(QIcon(":/images/putsvg.png"), tr("Put SVG scheme file to server"), this);
-    exportSVGAct->setStatusTip(tr("Put SVG file to server"));
-    connect(putSVGAct, SIGNAL(triggered()), this, SLOT(putSchemeSVG()));
-
-    putNSSAct = new QAction(QIcon(":/images/putnss.png"), tr("Put NSS scheme file to server"), this);
-    putNSSAct->setStatusTip(tr("Put NSS scheme file to server"));
-    connect(putNSSAct, SIGNAL(triggered()), this, SLOT(putSchemeNSS()));
 
     emailAct = new QAction(QIcon(":/images/mailsend.png"), tr("Email scheme"), this);
     emailAct->setStatusTip(tr("Email this scheme as attachment"));

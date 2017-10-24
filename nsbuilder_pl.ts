@@ -488,8 +488,8 @@ Składnia poprawna,ale zawiodła kontrola typów</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="544"/>
-        <source>Appends instruction to the end of current instruction</source>
-        <translation>Dołącz instrukcję na koniec bieżącej sekwencji</translation>
+        <source>Appends instruction after the current instruction</source>
+        <translation>Dołącz instrukcję za obecną instrukcją</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="547"/>
@@ -523,12 +523,12 @@ Składnia poprawna,ale zawiodła kontrola typów</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="568"/>
-        <source>Export scheme</source>
-        <translation>Eksportuj schemat</translation>
+        <source>Export scheme to PNG image</source>
+        <translation>Eksportuj schemat do pliku PNG</translation>
     </message>
     <message>
         <source>Export scheme to image file</source>
-        <translation type="obsolete">Eksportuj schemat do pliku graficznego</translation>
+        <translation type="obsolete">Eksportuj schemat do pliku SVG</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="584"/>
