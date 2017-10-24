@@ -1,4 +1,5 @@
 *.user
+*.qm
 /.moc
 /.obj
 /.ui

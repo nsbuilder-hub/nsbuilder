@@ -84,6 +84,8 @@ To compile release version:
 ./scripts/set-version.sh
 qmake
 make
+
+lrelease nsbuilder.pro #for build translations
 ```
 
 Or just run `scripts/build-linux-64bit.sh` to get executable version zipped to 
