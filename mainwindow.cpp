@@ -73,9 +73,11 @@ MainWindow::MainWindow():
     m_variableEditor = new VariableEditor(this);
     m_variableEditor->setVisible(false);
 
+    m_lastUsedDir = QDir::homePath();
+
 #ifdef Q_WS_X11
     m_lastUsedDir = get_current_dir_name();
-#endif
+#endif    
 
     p_clipboardInstruction = 0;
 
