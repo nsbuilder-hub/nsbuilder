@@ -171,7 +171,7 @@ QString Type::toString() const
     if (tc == Variable) {
         return "number";
     } else if (tc == Array) {
-        return QString("array[1..%2] of %1").arg(subtype ? subtype->toString() : "?").arg(arrayDimension);
+        return QString("array[0..%2] of %1").arg(subtype ? subtype->toString() : "?").arg(arrayDimension -1);
     } else if (tc == Function) {
         return QString("function from %1 to number").arg(subtype ? subtype->toString() : "?");
     } else if (tc == Product) {
@@ -410,7 +410,7 @@ QString ident_val_t::valueToString() const
 
         QString result("%1%2");
         int i;
-        for (i = 1; i < t.arraySize; ++i) {
+        for (i = 0; i < t.arraySize -1; ++i) {
             result = result.arg(v.indval->at(i).toString()).arg(",%1%2");
         }
         result = result.arg(v.indval->at(i).toString()).arg("");
