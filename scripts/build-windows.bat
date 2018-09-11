@@ -21,9 +21,9 @@ IF /I "%FLAVOR%"=="DEBUG" GOTO :EOF
 
 copy nsbuilder_pl.qm release\
 copy %QTPATH%\bin\QtCore4.dll release\
-copy %QTPATH%\QtGui4.dll release\
-copy %QTPATH%\QtNetwork4.dll release\
-copy %QTPATH%\QtXml4.dll release\
+copy %QTPATH%\bin\QtGui4.dll release\
+copy %QTPATH%\bin\QtNetwork4.dll release\
+copy %QTPATH%\bin\QtXml4.dll release\
 copy %MINGWPATH%\mingwm10.dll release\
 copy %MINGWPATH%\libgcc_s_dw2-1.dll release\
 del release\qrc_nsbuilder.cpp
