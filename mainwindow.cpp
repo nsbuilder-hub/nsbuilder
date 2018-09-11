@@ -567,7 +567,7 @@ void MainWindow::createActions()
     connect(editVarsAct, SIGNAL(triggered()), this, SLOT(editVariables()));
 
     exportAct = new QAction(QIcon(":/images/export.png"), tr("Export scheme to PNG image"), this);
-    exportAct->setStatusTip(tr("Export scheme to PNG image file"));
+    exportAct->setStatusTip(tr("Export scheme to PNG image"));
     connect(exportAct, SIGNAL(triggered()), this, SLOT(exportScheme()));
 
     exportSVGAct = new QAction(QIcon(":/images/exportsvg.png"), tr("Export scheme to SVG image"), this);

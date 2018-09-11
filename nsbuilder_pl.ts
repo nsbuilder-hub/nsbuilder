@@ -522,12 +522,12 @@ Składnia poprawna,ale zawiodła kontrola typów</translation>
         <translation>Usuń zaznaczoną instrukcję</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="568"/>
+        <location filename="mainwindow.cpp" line="569"/>
         <source>Export scheme to PNG image</source>
         <translation>Eksportuj schemat do pliku PNG</translation>
     </message>
     <message>
-        <source>Export scheme to image file</source>
+        <source>Export scheme to SVG file</source>
         <translation type="obsolete">Eksportuj schemat do pliku SVG</translation>
     </message>
     <message>
